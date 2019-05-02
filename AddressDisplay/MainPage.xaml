@@ -4,11 +4,10 @@
              xmlns:local="clr-namespace:AddressDisplay"
              x:Class="AddressDisplay.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <Grid BackgroundColor="Gray" RowSpacing="0" ColumnSpacing="0">
+
+        
+
+    </Grid>
 
 </ContentPage>

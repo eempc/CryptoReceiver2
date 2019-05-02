@@ -1,0 +1,13 @@
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.csprojAssemblyReference.cache
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressPage.xaml.g.cs
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\App.xaml.g.cs
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.csproj.CoreCompileInputs.cache
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.AssemblyInfoInputs.cache
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.AssemblyInfo.cs
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\AddressDisplay.pdb
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\bin\Debug\netstandard2.0\AddressDisplay.deps.json
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\bin\Debug\netstandard2.0\AddressDisplay.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\bin\Debug\netstandard2.0\AddressDisplay.pdb
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay\obj\Debug\netstandard2.0\XamlC.stamp

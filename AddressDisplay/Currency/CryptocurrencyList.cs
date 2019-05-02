@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace AddressDisplay.Currency {
+    class CryptocurrencyList {
+        // Hard coded list of cryptocurrencies, an SQLite version for user-generated addresses may exist in future
+        // maybe this should be all static? Maybe it should be instantiated
+
+        public static Dictionary<string, Cryptocurrency> cryptocurrencies = new Dictionary<string, Cryptocurrency>();
+
+        public static void InitiateCryptos() {
+            cryptocurrencies.Add("Ethereum", new Cryptocurrency(
+                "ETH",
+                "Ethereum",
+                new Dictionary<string, int>() { { "ether", 0 }, { "finney", 3 }, { "szabo", 6 }, { "shannon", 9 }, { "lovelace", 12 }, { "babbage", 15 }, { "wei", 18 } },
+                "eth.png"
+                ));
+            cryptocurrencies.Add("Bitcoin", new Cryptocurrency(
+                "BTC", "Bitcoin", new Dictionary<string, int>() { { "bitcoin", 0 }, { "satoshi", 8 } }, "btc.png"
+                ));
+            cryptocurrencies.Add("Monero", new Cryptocurrency(
+                "XMR", "Monero", new Dictionary<string, int>() { { "monero", 0 }, { "piconero", 12 } }, "xmr.png"
+                ));
+        }
+
+        public static List<string> GetCryptoList() {
+            List<string> list = new List<string>();
+            foreach (KeyValuePair<string, Cryptocurrency> entry in cryptocurrencies) {
+                list.Add(entry.Value.fullName); // Same as entry.Key but probably best to use the object property
+            }
+            return list;
+        }
+    }
+}
