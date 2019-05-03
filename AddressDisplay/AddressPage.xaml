@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <AbsoluteLayout>
             <StackLayout>
-                <Button x:Name="AddButton" Text="Add"></Button>
+                <Button x:Name="AddButton" Text="Add" Clicked="AddButton_Clicked"></Button>
                 <ListView x:Name="AddressesListView" ItemTapped="AddressesListView_ItemTapped" BackgroundColor="Gray" SelectionMode="Single">
                     <!-- What follows is an item template for each list view item and how it is bound to a class's properties -->
                     <ListView.ItemTemplate>
@@ -51,9 +51,9 @@
                     </Picker>
 
                     <FlexLayout JustifyContent="SpaceAround">
-                        <Button x:Name="PasteButton" Text="Paste"/>
-                        <Button x:Name="CancelButton" Text="Cancel"/>
-                        <Button x:Name="OkayButton" Text="Okay"/>
+                        <Button x:Name="PasteButton" Clicked="PasteButton_Clicked" Text="Paste"/>
+                        <Button x:Name="CancelButton" Clicked="CancelButton_Clicked" Text="Cancel"/>
+                        <Button x:Name="OkayButton" Clicked="OkayButton_Clicked" Text="Okay"/>
                     </FlexLayout>
                 </StackLayout>
             </ContentView>

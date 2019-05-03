@@ -27,6 +27,7 @@ namespace AddressDisplay {
         }
 
         private void InitialiseAddressListView() {
+            userAddresses.Clear();
             // First retrieve the raw UserAddress list from the database
             List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
 
@@ -45,52 +46,52 @@ namespace AddressDisplay {
             AddressesListView.ItemsSource = userAddresses;
         }
 
+        int updateIdGlobal; // updated by tappedItem.id global variable
         // Add a new user address
-        //private void AddButton_Clicked(object sender, EventArgs e) {
-        //    CreatePopUp("Create address");
-        //    updateIdGlobal = 0;
-        //}
+        private void AddButton_Clicked(object sender, EventArgs e) {
+            CreatePopUp("Create address");
+            updateIdGlobal = 0;
+        }
 
         // Make pop up entry form visible. Populate if it is an edit
-        //private void CreatePopUp(string heading, string name = "", string address = "", int pickerIndex = -1) {
-        //    Overlay.IsVisible = true;
-        //    PopUpLabel.Text = heading;
-        //    CryptoPicker.SelectedIndex = pickerIndex;
-        //    AddressName.Text = name;
-        //    EnterAddressField.Text = address;
-        //}
+        private void CreatePopUp(string heading, string name = "", string address = "", int pickerIndex = -1) {
+            Overlay.IsVisible = true;
+            PopUpLabel.Text = heading;
+            CryptoPicker.SelectedIndex = pickerIndex;
+            AddressName.Text = name;
+            EnterAddressField.Text = address;
+        }
 
-        //private void PasteButton_Clicked(object sender, EventArgs e) => PasteAddress();
+        private void PasteButton_Clicked(object sender, EventArgs e) => PasteAddress();
 
-        //private async void PasteAddress() {
-        //    if (Clipboard.HasText) {
-        //        string clipboardText = await Clipboard.GetTextAsync();
-        //        EnterAddressField.Text = clipboardText;
-        //    }
-        //}
+        private async void PasteAddress() {
+            if (Clipboard.HasText) {
+                string clipboardText = await Clipboard.GetTextAsync();
+                EnterAddressField.Text = clipboardText;
+            }
+        }
 
-        //private void CancelButton_Clicked(object sender, EventArgs e) => ClearPopUp();
+        private void CancelButton_Clicked(object sender, EventArgs e) => ClearPopUp();
 
-        //private void ClearPopUp() {
-        //    Overlay.IsVisible = false;
-        //    EnterAddressField.Text = "";
-        //    AddressName.Text = "";
-        //}
+        private void ClearPopUp() {
+            Overlay.IsVisible = false;
+            EnterAddressField.Text = "";
+            AddressName.Text = "";
+        }
 
-        //private void OkayButton_Clicked(object sender, EventArgs e) => SaveAddress();
+        private void OkayButton_Clicked(object sender, EventArgs e) => SaveAddress();
 
-        //int updateIdGlobal; // updated by tappedItem.id global variable
-        //private void SaveAddress() {
-        //    UserAddress address = new UserAddress();
-        //    address.name = AddressName.Text;
-        //    address.address = EnterAddressField.Text;
-        //    address.crypto = CryptoPicker.SelectedItem.ToString();
-        //    //address.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[CryptoPicker.SelectedItem.ToString()].imageFile; // This is a bad line
-        //    address.id = updateIdGlobal;
-        //    ClearPopUp();
-        //    AddressDatabase.SaveToDatabase(address);
-        //    RefreshListView();
-        //}
+        private void SaveAddress() {
+            UserAddress address = new UserAddress();
+            address.name = AddressName.Text;
+            address.address = EnterAddressField.Text;
+            address.crypto = CryptoPicker.SelectedItem.ToString();
+            //address.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[CryptoPicker.SelectedItem.ToString()].imageFile; // This is a bad line
+            address.id = updateIdGlobal;
+            ClearPopUp();
+            AddressDatabase.SaveToDatabase(address);
+            //RefreshListView();
+        }
 
         // Tap each address to bring up a list of things to do
         //private async void AddressesListView_ItemTapped(object sender, ItemTappedEventArgs e) {
@@ -130,6 +131,22 @@ namespace AddressDisplay {
                 //updateIdGlobal = tappedItem.id;
             }
         }
+
+        //private void PasteButton_Clicked(object sender, EventArgs e) {
+
+        //}
+
+        //private void CancelButton_Clicked(object sender, EventArgs e) {
+
+        //}
+
+        //private void OkayButton_Clicked(object sender, EventArgs e) {
+
+        //}
+
+        //private void AddButton_Clicked(object sender, EventArgs e) {
+
+        //}
 
         //private void MenuItem_Clicked(object sender, EventArgs e) {
         //    var mi = ((MenuItem)sender);
