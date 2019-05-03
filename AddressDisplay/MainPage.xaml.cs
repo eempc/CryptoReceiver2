@@ -22,22 +22,22 @@ namespace AddressDisplay {
             //Currency.CryptocurrencyList.InitiateCryptos();
             //AddressDatabase.CreateDatabase();
 
-            //var iconTap = new TapGestureRecognizer();
-            //iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };
-            //Image ic = BurgerIcon;
-            //ic.GestureRecognizers.Add(iconTap);
+            var iconTap = new TapGestureRecognizer();
+            iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };
+            Image ic = Burger;
+            ic.GestureRecognizers.Add(iconTap);
 
         }
 
         // Page navigation to the address page
-        //public async void GoToAddPage() => await Navigation.PushAsync(new AddressPage { Title = "Address CRUD Page" });
+        public async void GoToAddPage() => await Navigation.PushAsync(new AddressPage { Title = "Address CRUD Page" });
 
         // When user enters a fiat amount into the box
-        private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
-            //if (double.TryParse(FiatAmount.Text, out double d) && !Double.IsNaN(d) && d > 0 && !Double.IsInfinity(d)) {
-            //    UpdateCryptoAmount(d);
-            //}
-        }
+        //private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
+        //    //if (double.TryParse(FiatAmount.Text, out double d) && !Double.IsNaN(d) && d > 0 && !Double.IsInfinity(d)) {
+        //    //    UpdateCryptoAmount(d);
+        //    //}
+        //}
 
         //public void UpdateCryptoAmount(double fiatAmount) => CryptoAmount.Text = (fiatAmount).ToString();
 
@@ -52,13 +52,13 @@ namespace AddressDisplay {
         }
 
         // When user clicks on one of the icons depicting their address (this was going to be remade        
-        private void ImageButtonFlex_Clicked(object sender, EventArgs e) {
-            //var id = ((ImageButton)sender).ClassId;
+        //private void ImageButtonFlex_Clicked(object sender, EventArgs e) {
+        //    //var id = ((ImageButton)sender).ClassId;
 
-            ////await DisplayAlert("Alert", id, "OK");
+        //    ////await DisplayAlert("Alert", id, "OK");
 
-            //LoadAddress(id);
-        }
+        //    //LoadAddress(id);
+        //}
 
         public void LoadAddress(string x) {
             //if (int.TryParse(x, out int number)) {
