@@ -19,8 +19,8 @@ namespace AddressDisplay {
         public MainPage() {
             InitializeComponent();
             //NavigationPage.SetHasNavigationBar(this, false);
-            //Currency.CryptocurrencyList.InitiateCryptos();
-            //AddressDatabase.CreateDatabase();
+            Currency.CryptocurrencyList.InitiateCryptos();
+            AddressDatabase.CreateDatabase();
 
             var iconTap = new TapGestureRecognizer();
             iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };

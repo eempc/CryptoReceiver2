@@ -6,7 +6,7 @@
         <AbsoluteLayout>
             <StackLayout>
                 <Button x:Name="AddButton" Text="Add"></Button>
-                <ListView x:Name="AddressesListView" BackgroundColor="Gray" SelectionMode="Single">
+                <ListView x:Name="AddressesListView" ItemTapped="AddressesListView_ItemTapped" BackgroundColor="Gray" SelectionMode="Single">
                     <!-- What follows is an item template for each list view item and how it is bound to a class's properties -->
                     <ListView.ItemTemplate>
                         <DataTemplate>

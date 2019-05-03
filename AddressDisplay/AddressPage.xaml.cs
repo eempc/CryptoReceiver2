@@ -16,30 +16,34 @@ namespace AddressDisplay {
         List<string> cryptoList = new List<string>();
         public AddressPage() {
             InitializeComponent();
-            //InitialiseCreatePopUp();
-            //InitialiseAddressListView();
+            InitialiseCreatePopUp();
+            InitialiseAddressListView();
         }
 
-        //private void InitialiseCreatePopUp() {
-        //    Overlay.IsVisible = false;
-        //    cryptoList = Currency.CryptocurrencyList.GetCryptoList();
-        //    CryptoPicker.ItemsSource = cryptoList.OrderBy(s => s).ToList();
-        //}
+        private void InitialiseCreatePopUp() {
+            Overlay.IsVisible = false;
+            cryptoList = Currency.CryptocurrencyList.GetCryptoList();
+            CryptoPicker.ItemsSource = cryptoList.OrderBy(s => s).ToList();
+        }
 
-        //private void InitialiseAddressListView() {
-        //    // First retrieve the raw UserAddress list from the database
-        //    List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
+        private void InitialiseAddressListView() {
+            // First retrieve the raw UserAddress list from the database
+            List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
 
-        //    // Then cast it to the ListViewUserAddress and add the icon's path
-        //    foreach (UserAddress useAdd in tempList) {
-        //        ListViewUserAddress x = (ListViewUserAddress)useAdd;
-        //        x.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[x.crypto].imageFile; // Was this really the best way to do this?
-        //        userAddresses.Add(x);
-        //    }
+            // Then cast it to the ListViewUserAddress and add the icon's path
+            foreach (UserAddress userAddress in tempList) {
+                ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
+                addressToBeAdded.id = userAddress.id;
+                addressToBeAdded.name = userAddress.name;
+                addressToBeAdded.address = userAddress.address;
+                addressToBeAdded.crypto = userAddress.crypto;
+                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].imageFile; // Was this really the best way to do this?
+                userAddresses.Add(addressToBeAdded);
+            }
 
-        //    // Then data binding here
-        //    AddressesListView.ItemsSource = userAddresses;
-        //}
+            // Then data binding here
+            AddressesListView.ItemsSource = userAddresses;
+        }
 
         // Add a new user address
         //private void AddButton_Clicked(object sender, EventArgs e) {
@@ -109,6 +113,22 @@ namespace AddressDisplay {
             //userAddresses.Clear();
             //userAddresses = new ObservableCollection<UserAddress>(AddressDatabase.ReadDatabase());
             //AddressesListView.ItemsSource = userAddresses; // Unnecessary with an Observable Collection
+        }
+
+        private async void AddressesListView_ItemTapped(object sender, ItemTappedEventArgs e) {
+            ListViewUserAddress tappedItem = (ListViewUserAddress)((ListView)sender).SelectedItem;
+            string action = await DisplayActionSheet("Action on " + tappedItem.name, "Cancel", null, "Delete", "Edit", "Copy address");
+
+            if (action == "Delete") {
+                AddressDatabase.DeleteFromDatabase(tappedItem.id);
+                userAddresses.Remove(userAddresses.Where(x => x.id == tappedItem.id).Single()); // x refers to each item in the collection
+            } else if (action == "Copy address") {
+                await Clipboard.SetTextAsync(tappedItem.address);
+            } else if (action == "Edit") {
+                //int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
+                //CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
+                //updateIdGlobal = tappedItem.id;
+            }
         }
 
         //private void MenuItem_Clicked(object sender, EventArgs e) {
