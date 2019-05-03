@@ -14,10 +14,12 @@ namespace AddressDisplay {
     public partial class AddressPage : ContentPage {
         static ObservableCollection<ListViewUserAddress> userAddresses = new ObservableCollection<ListViewUserAddress>(); // An observable collection is needed in order for the listview to auto update, not a List
         List<string> cryptoList = new List<string>();
+
         public AddressPage() {
             InitializeComponent();
             InitialiseCreatePopUp();
             InitialiseAddressListView();
+            PopulateListView();
         }
 
         private void InitialiseCreatePopUp() {
@@ -26,12 +28,12 @@ namespace AddressDisplay {
             CryptoPicker.ItemsSource = cryptoList.OrderBy(s => s).ToList();
         }
 
-        private void InitialiseAddressListView() {
+        public static void InitialiseAddressListView() {
             userAddresses.Clear();
             // First retrieve the raw UserAddress list from the database
             List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
 
-            // Then cast it to the ListViewUserAddress and add the icon's path
+            //// Then cast it to the ListViewUserAddress and add the icon's path
             foreach (UserAddress userAddress in tempList) {
                 ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
                 addressToBeAdded.id = userAddress.id;
@@ -42,6 +44,12 @@ namespace AddressDisplay {
                 userAddresses.Add(addressToBeAdded);
             }
 
+            //List<ListViewUserAddress> listViewAddresses = AddressDatabase.ReadDatabase2();
+            //userAddresses = new ObservableCollection<ListViewUserAddress>(listViewAddresses);
+
+        }
+
+        private void PopulateListView() {
             // Then data binding here
             AddressesListView.ItemsSource = userAddresses;
         }
@@ -87,7 +95,7 @@ namespace AddressDisplay {
             address.address = EnterAddressField.Text;
             address.crypto = CryptoPicker.SelectedItem.ToString();
             //address.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[CryptoPicker.SelectedItem.ToString()].imageFile; // This is a bad line
-            address.id = updateIdGlobal;
+            address.id = updateIdGlobal; // Update global id, if it is 0 then SavetoDatabase will create a new entry, it is set to 0 by Add Button. Could replace with default argument
             ClearPopUp();
             AddressDatabase.SaveToDatabase(address);
             //RefreshListView();
@@ -126,9 +134,9 @@ namespace AddressDisplay {
             } else if (action == "Copy address") {
                 await Clipboard.SetTextAsync(tappedItem.address);
             } else if (action == "Edit") {
-                //int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
-                //CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
-                //updateIdGlobal = tappedItem.id;
+                int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
+                CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
+                updateIdGlobal = tappedItem.id;
             }
         }
 

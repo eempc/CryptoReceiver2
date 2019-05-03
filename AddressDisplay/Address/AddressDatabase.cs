@@ -31,6 +31,22 @@ namespace AddressDisplay.Address {
             return list;
         }
 
+        public static List<ListViewUserAddress> ReadDatabase2() {
+            List<UserAddress> basicAddresses = ReadDatabase();
+            List<ListViewUserAddress> listViewAddresses = new List<ListViewUserAddress>();
+            // Then cast it to the ListViewUserAddress and add the icon's path
+            foreach (UserAddress userAddress in basicAddresses) {
+                ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
+                addressToBeAdded.id = userAddress.id;
+                addressToBeAdded.name = userAddress.name;
+                addressToBeAdded.address = userAddress.address;
+                addressToBeAdded.crypto = userAddress.crypto;
+                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].imageFile; // Was this really the best way to do this?
+                listViewAddresses.Add(addressToBeAdded);
+            }
+            return listViewAddresses;
+        }
+
         public static void DeleteFromDatabase(int id) {
             SQLiteConnection db = new SQLiteConnection(databasePath);
             db.Delete<UserAddress>(id);

@@ -43,7 +43,7 @@ namespace AddressDisplay {
 
         // Populate the wallet icon area
         protected override void OnAppearing() {
-            //PopulateWalletArea();
+            PopulateWalletArea();
         }
 
         private void PopulateWalletArea() {
