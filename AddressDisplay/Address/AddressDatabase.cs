@@ -42,6 +42,9 @@ namespace AddressDisplay.Address {
                 addressToBeAdded.address = userAddress.address;
                 addressToBeAdded.crypto = userAddress.crypto;
                 addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].imageFile; // Was this really the best way to do this?
+
+                //ListViewUserAddress addressToBeAdded = (ListViewUserAddress)userAddress;
+
                 listViewAddresses.Add(addressToBeAdded);
             }
             return listViewAddresses;

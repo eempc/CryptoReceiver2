@@ -14,7 +14,7 @@ namespace AddressDisplay {
     public partial class MainPage : ContentPage {
 
         //int currentAddressIndex;
-        //List<UserAddress> addresses;
+        List<ListViewUserAddress> addresses;
 
         public MainPage() {
             InitializeComponent();
@@ -47,8 +47,8 @@ namespace AddressDisplay {
         }
 
         private void PopulateWalletArea() {
-            //addresses = AddressDatabase.ReadDatabase();
-            //BindableLayout.SetItemsSource(WalletArea, addresses); // Data binding part
+            addresses = AddressDatabase.ReadDatabase2();
+            BindableLayout.SetItemsSource(WalletArea, addresses); // Data binding part
         }
 
         // When user clicks on one of the icons depicting their address (this was going to be remade        

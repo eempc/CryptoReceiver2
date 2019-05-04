@@ -15,5 +15,16 @@ namespace AddressDisplay.Address {
         public string address { get; set; } // "E.g. 0x89621f199bbc88a" Technically hexadecimal
         [MaxLength(64)]
         public string crypto { get; set; } // E.g. a string "Ethereum" 
+
+        //public UserAddress(int id, string name, string address, string crypto) {
+        //    this.id = id;
+        //    this.name = name;
+        //    this.address = address;
+        //    this.crypto = crypto;
+        //}
+
+        //public UserAddress() {
+
+        //}
     }
 }
