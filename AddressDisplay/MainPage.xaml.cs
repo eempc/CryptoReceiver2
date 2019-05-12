@@ -35,7 +35,7 @@ namespace AddressDisplay {
         }
 
         // Page navigation to the address page
-        public async void GoToAddPage() => await Navigation.PushAsync(new AddressPage { Title = "Address CRUD Page" });
+        public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
 
         // When user enters a fiat amount into the box
         //private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
