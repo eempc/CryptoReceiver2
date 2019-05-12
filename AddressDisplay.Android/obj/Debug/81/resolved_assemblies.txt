@@ -1,5 +1,6 @@
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\AddressDisplay.Android.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\AddressDisplay.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\FastAndroidCamera.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\FormsViewGroup.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Java.Interop.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Mono.Android.dll
@@ -41,6 +42,11 @@ D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\an
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Xamarin.Forms.Platform.Android.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Xamarin.Forms.Platform.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Xamarin.Forms.Xaml.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXing.Net.Mobile.Core.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXing.Net.Mobile.Forms.Android.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXing.Net.Mobile.Forms.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\zxing.portable.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXingNetMobile.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\netstandard.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Data.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Transactions.dll
@@ -63,3 +69,7 @@ D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\an
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Reflection.Extensions.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Globalization.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Mono.Security.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.ObjectModel.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Text.Encoding.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.IO.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\System.Text.RegularExpressions.dll

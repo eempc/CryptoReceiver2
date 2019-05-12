@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using AddressDisplay.Address;
+using ZXing;
 
 namespace AddressDisplay {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
@@ -27,6 +28,10 @@ namespace AddressDisplay {
             Image ic = Burger;
             ic.GestureRecognizers.Add(iconTap);
 
+            //BarcodeImageView.BarcodeValue = "test string";
+            //BarcodeImageView.IsVisible = true;
+
+
         }
 
         // Page navigation to the address page
@@ -41,7 +46,7 @@ namespace AddressDisplay {
 
         //public void UpdateCryptoAmount(double fiatAmount) => CryptoAmount.Text = (fiatAmount).ToString();
 
-        // Populate the wallet icon area
+        // Populate the wallet icon area at the bottom
         protected override void OnAppearing() {
             PopulateWalletArea();
         }

@@ -113,6 +113,7 @@ namespace AddressDisplay.Droid
 			global::Xamarin.Essentials.Resource.Style.TextAppearance_Compat_Notification_Title = global::AddressDisplay.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
 			global::Xamarin.Essentials.Resource.Style.Widget_Compat_NotificationActionContainer = global::AddressDisplay.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
 			global::Xamarin.Essentials.Resource.Style.Widget_Compat_NotificationActionText = global::AddressDisplay.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Xamarin.Essentials.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::AddressDisplay.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamily = global::AddressDisplay.Droid.Resource.Styleable.FontFamily;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamily_fontProviderAuthority = global::AddressDisplay.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamily_fontProviderCerts = global::AddressDisplay.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
@@ -2070,6 +2071,12 @@ namespace AddressDisplay.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_id = global::AddressDisplay.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_inflatedId = global::AddressDisplay.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::Xamarin.Forms.Platform.Android.Resource.Styleable.ViewStubCompat_android_layout = global::AddressDisplay.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::ZXing.Net.Mobile.Forms.Android.Resource.Layout.zxingscanneractivitylayout = global::AddressDisplay.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Net.Mobile.Forms.Android.Resource.Layout.zxingscannerfragmentlayout = global::AddressDisplay.Droid.Resource.Layout.zxingscannerfragmentlayout;
+			global::ZXing.Net.Mobile.Forms.Android.Resource.String.library_name = global::AddressDisplay.Droid.Resource.String.library_name;
+			global::ZXing.Mobile.Resource.Id.contentFrame = global::AddressDisplay.Droid.Resource.Id.contentFrame;
+			global::ZXing.Mobile.Resource.Layout.zxingscanneractivitylayout = global::AddressDisplay.Droid.Resource.Layout.zxingscanneractivitylayout;
+			global::ZXing.Mobile.Resource.Layout.zxingscannerfragmentlayout = global::AddressDisplay.Droid.Resource.Layout.zxingscannerfragmentlayout;
 		}
 		
 		public partial class Animation
@@ -2117,17 +2124,17 @@ namespace AddressDisplay.Droid
 			// aapt resource value: 0x7F01000E
 			public const int design_snackbar_out = 2130771982;
 			
-			// aapt resource value: 0x7F080018
-			public const int EnterFromLeft = 2131230744;
+			// aapt resource value: 0x7F090018
+			public const int EnterFromLeft = 2131296280;
 			
-			// aapt resource value: 0x7F080019
-			public const int EnterFromRight = 2131230745;
+			// aapt resource value: 0x7F090019
+			public const int EnterFromRight = 2131296281;
 			
-			// aapt resource value: 0x7F080020
-			public const int ExitToLeft = 2131230752;
+			// aapt resource value: 0x7F090020
+			public const int ExitToLeft = 2131296288;
 			
-			// aapt resource value: 0x7F080021
-			public const int ExitToRight = 2131230753;
+			// aapt resource value: 0x7F090021
+			public const int ExitToRight = 2131296289;
 			
 			// aapt resource value: 0x7F01000F
 			public const int tooltip_enter = 2130771983;
@@ -5196,6 +5203,9 @@ namespace AddressDisplay.Droid
 			// aapt resource value: 0x7F0C0020
 			public const int container = 2131492896;
 			
+			// aapt resource value: 0x7F020185
+			public const int contentFrame = 2130837893;
+			
 			// aapt resource value: 0x7F0C0021
 			public const int contentPanel = 2131492897;
 			
@@ -5943,6 +5953,12 @@ namespace AddressDisplay.Droid
 			// aapt resource value: 0x7F0F003C
 			public const int tooltip = 2131689532;
 			
+			// aapt resource value: 0x7F030074
+			public const int zxingscanneractivitylayout = 2130903156;
+			
+			// aapt resource value: 0x7F030075
+			public const int zxingscannerfragmentlayout = 2130903157;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -6073,6 +6089,9 @@ namespace AddressDisplay.Droid
 			
 			// aapt resource value: 0x7F150020
 			public const int character_counter_pattern = 2132082720;
+			
+			// aapt resource value: 0x7F100062
+			public const int library_name = 2131755106;
 			
 			// aapt resource value: 0x7F15001E
 			public const int mr_button_content_description = 2132082718;
@@ -9510,6 +9529,22 @@ namespace AddressDisplay.Droid
 			}
 			
 			private Styleable()
+			{
+			}
+		}
+		
+		public partial class Xml
+		{
+			
+			// aapt resource value: 0x7F080002
+			public const int xamarin_essentials_fileprovider_file_paths = 2131230722;
+			
+			static Xml()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Xml()
 			{
 			}
 		}

@@ -112,6 +112,7 @@ class MonoPackageManager_Resources {
 		/* We need to ensure that "AddressDisplay.Android.dll" comes first in this list. */
 		"AddressDisplay.Android.dll",
 		"AddressDisplay.dll",
+		"FastAndroidCamera.dll",
 		"FormsViewGroup.dll",
 		"SQLite-net.dll",
 		"SQLitePCLRaw.batteries_green.dll",
@@ -144,6 +145,11 @@ class MonoPackageManager_Resources {
 		"Xamarin.Forms.Platform.Android.dll",
 		"Xamarin.Forms.Platform.dll",
 		"Xamarin.Forms.Xaml.dll",
+		"ZXing.Net.Mobile.Core.dll",
+		"ZXing.Net.Mobile.Forms.Android.dll",
+		"ZXing.Net.Mobile.Forms.dll",
+		"zxing.portable.dll",
+		"ZXingNetMobile.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};
