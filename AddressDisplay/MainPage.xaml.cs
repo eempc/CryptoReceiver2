@@ -23,15 +23,20 @@ namespace AddressDisplay {
             Currency.CryptocurrencyList.InitiateCryptos();
             AddressDatabase.CreateDatabase();
 
-            var iconTap = new TapGestureRecognizer();
-            iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };
-            Image ic = Burger;
-            ic.GestureRecognizers.Add(iconTap);
+            InitialiseImageButton();
 
             //BarcodeImageView.BarcodeValue = "test string";
             //BarcodeImageView.IsVisible = true;
 
 
+        }
+
+        // To navigate to the listview address page
+        public void InitialiseImageButton() {
+            var iconTap = new TapGestureRecognizer();
+            iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };
+            Image ic = Burger;
+            ic.GestureRecognizers.Add(iconTap);
         }
 
         // Page navigation to the address page
@@ -65,22 +70,30 @@ namespace AddressDisplay {
         //    //LoadAddress(id);
         //}
 
+        private void ImageButton_Clicked(object sender, EventArgs e) {
+            string id = ((ImageButton)sender).ClassId;
+            LoadAddress(id);
+        }
+
         public void LoadAddress(string x) {
-            //if (int.TryParse(x, out int number)) {
-            //    //await DisplayAlert("Alert", i.ToString(), "OK");
-            //    UserAddress address = AddressDatabase.GetItemById(number);
-            //    SetAddressView(address);
-            //}
+            if (int.TryParse(x, out int number)) {
+                //await DisplayAlert("Alert", i.ToString(), "OK");
+                UserAddress address = AddressDatabase.GetItemById(number);
+                SetAddressView(address);
+            }
         }
 
         public void SetAddressView(UserAddress address) {
-            //string cryptoName = address.crypto;
-            //Header.Text = cryptoName;
-            //TopLeftIcon.Source = Currency.CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
-            //GivenName.Text = address.name;
-            //CryptoAddress.Text = address.address; //.yeah well done here rofl
+            string cryptoName = address.crypto;
+            Header.Text = cryptoName;
+            TopLeftIcon.Source = Currency.CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
+            GivenName.Text = address.name;
+            CryptoAddress.Text = address.address; //.yeah well done here rofl
+            BarcodeImageView.BarcodeValue = address.address;
             // Etherscan image source
             // Feed box changes
         }
+
+
     }
 }

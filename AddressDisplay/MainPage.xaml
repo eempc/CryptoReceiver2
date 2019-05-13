@@ -127,7 +127,7 @@
                 <FlexLayout x:Name="WalletArea"  Wrap="NoWrap" CompressedLayout.IsHeadless="False" Position="Relative" HorizontalOptions="Center" AlignItems="Center">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <ImageButton ClassId="{Binding id}" Source="{Binding cryptoIconPath}" Style="{StaticResource WalletIcon}"/>
+                            <ImageButton Clicked="ImageButton_Clicked" ClassId="{Binding id}" Source="{Binding cryptoIconPath}" Style="{StaticResource WalletIcon}"/>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>
