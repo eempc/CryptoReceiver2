@@ -33,14 +33,11 @@
             <Image x:Name="Burger" Source="list.png" Grid.Column="2" />
         </Grid>
 
-
-
         <!-- Row 1 Address name-->
 
         <Label x:Name="GivenName" Grid.Row="1" Text="Omise GO Smart Contract" Style="{StaticResource LabelName}"></Label>
         
-        <!-- Row 2 QR code -->
-
+        <!-- Row 2 QR code, which requires those two namespaces at the top, it will not work with NavigationPage -->
 
         <Frame x:Name="QRFrame" Grid.Row="2" Padding="3" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center">
             <zxing:ZXingBarcodeImageView x:Name="BarcodeImageView" BarcodeFormat="QR_CODE" IsVisible="True" BarcodeValue="hello">
@@ -49,7 +46,6 @@
                 </zxing:ZXingBarcodeImageView.BarcodeOptions>
             </zxing:ZXingBarcodeImageView>
         </Frame>
-
 
         <!-- Row 3 Address -->
 
@@ -109,8 +105,6 @@
                     <Label TextColor="Azure"  x:Name="ExchangeRateSource" Text="ethereumprice.org" HorizontalTextAlignment="Center" FontSize="10"></Label>
                 </FlexLayout>
             </Frame>
-
-
         </Grid>
 
         <!-- Row 7 wallet select -->
@@ -127,7 +121,15 @@
                 <FlexLayout x:Name="WalletArea"  Wrap="NoWrap" CompressedLayout.IsHeadless="False" Position="Relative" HorizontalOptions="Center" AlignItems="Center">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <ImageButton Clicked="ImageButton_Clicked" ClassId="{Binding id}" Source="{Binding cryptoIconPath}" Style="{StaticResource WalletIcon}"/>
+                            <!-- the centering is needed to prevent image resize -->
+                            <ImageButton 
+                                HorizontalOptions="Center" 
+                                VerticalOptions="Center" 
+                                Clicked="ImageButton_Clicked" 
+                                ClassId="{Binding id}" 
+                                Source="{Binding cryptoIconPath}" 
+                                Style="{StaticResource WalletIcon}"
+                                />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>

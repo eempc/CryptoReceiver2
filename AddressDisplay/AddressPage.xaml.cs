@@ -33,7 +33,7 @@ namespace AddressDisplay {
             // First retrieve the raw UserAddress list from the database
             List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
 
-            //// Then cast it to the ListViewUserAddress and add the icon's path
+            //// Then cast it to the ListViewUserAddress and add the icon's path because I have yet to discover how to cast betwene base and derived classes
             foreach (UserAddress userAddress in tempList) {
                 ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
                 addressToBeAdded.id = userAddress.id;
@@ -101,7 +101,7 @@ namespace AddressDisplay {
             address.id = updateIdGlobal; // Update global id, if it is 0 then SavetoDatabase will create a new entry, it is set to 0 by Add Button. Could replace with default argument
             ClearPopUp();
             AddressDatabase.SaveToDatabase(address);
-            //RefreshListView();
+            InitialiseAddressListView();
         }
 
         // Tap each address to bring up a list of things to do
@@ -122,7 +122,12 @@ namespace AddressDisplay {
         //}
 
         private void RefreshListView() {
+            //List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
+
             //userAddresses.Clear();
+            
+
+            
             //userAddresses = new ObservableCollection<UserAddress>(AddressDatabase.ReadDatabase());
             //AddressesListView.ItemsSource = userAddresses; // Unnecessary with an Observable Collection
         }
