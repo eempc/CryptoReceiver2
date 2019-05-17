@@ -94,6 +94,11 @@ namespace AddressDisplay {
             // Feed box changes
         }
 
+        private void ExchangeRate_Clicked(object sender, EventArgs e) {
+            //string price = Currency.PriceFeed.MakeApiCall("ETH");
+            ExchangeRate.Text = "$300";
+        }
 
+        private void UpdateExchangeRate
     }
 }

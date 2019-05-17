@@ -23,6 +23,10 @@ namespace AddressDisplay.Currency {
             return client.DownloadString(URL.ToString());
         }
 
+        public static void GetSinglePrice(string symbol) {
+            string json = MakeApiCall(symbol);
+        }
+
         // Question remains whether it is better to instantiate an object than go through all these instructions, there are only 8 lines though
     }
 }
