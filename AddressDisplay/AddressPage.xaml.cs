@@ -13,7 +13,7 @@ namespace AddressDisplay {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddressPage : ContentPage {
         static ObservableCollection<ListViewUserAddress> userAddresses = new ObservableCollection<ListViewUserAddress>(); // An observable collection is needed in order for the listview to auto update, not a List
-        List<string> cryptoList = new List<string>();
+        List<string> cryptoList = new List<string>(); // This is for the picker
 
         public AddressPage() {
             InitializeComponent();
@@ -22,6 +22,7 @@ namespace AddressDisplay {
             PopulateListView();
         }
 
+        // Setting up the invisible pop up
         private void InitialiseCreatePopUp() {
             Overlay.IsVisible = false;
             cryptoList = Currency.CryptocurrencyList.GetCryptoList();
@@ -33,7 +34,7 @@ namespace AddressDisplay {
             // First retrieve the raw UserAddress list from the database
             List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
 
-            //// Then cast it to the ListViewUserAddress and add the icon's path because I have yet to discover how to cast betwene base and derived classes
+            // Then cast it to the ListViewUserAddress and add the icon's path because I have yet to discover how to cast between base and derived classes
             foreach (UserAddress userAddress in tempList) {
                 ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
                 addressToBeAdded.id = userAddress.id;
@@ -52,16 +53,17 @@ namespace AddressDisplay {
 
         }
 
-        private void PopulateListView() {
-            // Then data binding here
+        // Then data binding here
+        private void PopulateListView() {            
             AddressesListView.ItemsSource = userAddresses;
         }
 
-        int updateIdGlobal; // updated by tappedItem.id global variable
+        int updateIdGlobal; // this variable updated by tappedItem.id global variable, not the best way to do it
+
         // Add a new user address
         private void AddButton_Clicked(object sender, EventArgs e) {
             CreatePopUp("Create address");
-            updateIdGlobal = 0;
+            updateIdGlobal = 0; // This zero means this is a new address to be added
         }
 
         // Make pop up entry form visible. Populate if it is an edit
@@ -73,6 +75,7 @@ namespace AddressDisplay {
             EnterAddressField.Text = address;
         }
 
+        // Simply paste an ETH address into the field
         private void PasteButton_Clicked(object sender, EventArgs e) => PasteAddress();
 
         private async void PasteAddress() {
@@ -82,6 +85,7 @@ namespace AddressDisplay {
             }
         }
 
+        // Finish up the pop up and make it disappear
         private void CancelButton_Clicked(object sender, EventArgs e) => ClearPopUp();
 
         private void ClearPopUp() {
@@ -90,6 +94,7 @@ namespace AddressDisplay {
             AddressName.Text = "";
         }
 
+        // Save address, either a new one or an edited one
         private void OkayButton_Clicked(object sender, EventArgs e) => SaveAddress();
 
         private void SaveAddress() {
@@ -101,7 +106,7 @@ namespace AddressDisplay {
             address.id = updateIdGlobal; // Update global id, if it is 0 then SavetoDatabase will create a new entry, it is set to 0 by Add Button. Could replace with default argument
             ClearPopUp();
             AddressDatabase.SaveToDatabase(address);
-            InitialiseAddressListView();
+            InitialiseAddressListView(); // Refresh listview
         }
 
         // Tap each address to bring up a list of things to do
@@ -132,6 +137,7 @@ namespace AddressDisplay {
             //AddressesListView.ItemsSource = userAddresses; // Unnecessary with an Observable Collection
         }
 
+        // Tap an item in the list view and get options, one of which is to edit the address
         private async void AddressesListView_ItemTapped(object sender, ItemTappedEventArgs e) {
             ListViewUserAddress tappedItem = (ListViewUserAddress)((ListView)sender).SelectedItem;
             string action = await DisplayActionSheet("Action on " + tappedItem.name, "Cancel", null, "Delete", "Edit", "Copy address");

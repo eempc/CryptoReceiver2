@@ -47,7 +47,7 @@
             </zxing:ZXingBarcodeImageView>
         </Frame>
 
-        <!-- Row 3 Address -->
+        <!-- Row 3 Address (OMG is the default example) -->
 
         <Label x:Name="CryptoAddress" Grid.Row="3" Style="{StaticResource LabelAddress}">0xd26114cd6EE289AccF82350c8d8487fedB8A0C07</Label>
 
@@ -102,7 +102,7 @@
                 <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center">
                     <Label TextColor="Azure" Text="Exchange rate" HorizontalTextAlignment="Center" FontSize="14"></Label>
                     <Label TextColor="Azure" x:Name="ExchangeRate" Text="$450" HorizontalTextAlignment="Center" FontSize="14"></Label>
-                    <Label TextColor="Azure"  x:Name="ExchangeRateSource" Text="ethereumprice.org" HorizontalTextAlignment="Center" FontSize="10"></Label>
+                    
                 </FlexLayout>
             </Frame>
         </Grid>

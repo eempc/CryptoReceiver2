@@ -19,7 +19,7 @@ namespace AddressDisplay.Droid
 
             base.OnCreate(savedInstanceState);
 
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            ZXing.Net.Mobile.Forms.Android.Platform.Init(); // ZXing here
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
