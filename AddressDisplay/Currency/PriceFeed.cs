@@ -23,6 +23,8 @@ namespace AddressDisplay.Currency {
             return client.DownloadString(URL.ToString());
         }
 
+        // Decide: quick and dirty method is to use regex
+        // "Proper" way is to use newtonsoft to deserialise
         public static void GetSinglePrice(string symbol) {
             string json = MakeApiCall(symbol);
         }
