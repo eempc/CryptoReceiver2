@@ -30,7 +30,7 @@
 
             <Image x:Name="TopLeftIcon" Grid.Column="0" Source="eth.png"></Image>
             <Label x:Name="Header" Grid.Column="1" Text="Ethereum" Style="{StaticResource LabelHeader}"/>
-            <Image x:Name="Burger" Source="list.png" Grid.Column="2" />
+            <ImageButton x:Name="Burger" Source="list.png" Grid.Column="2" Clicked="Burger_Clicked" BackgroundColor="Transparent" />
         </Grid>
 
         <!-- Row 1 Address name-->
@@ -40,7 +40,7 @@
         <!-- Row 2 QR code, which requires those two namespaces at the top, it will not work with NavigationPage -->
 
         <Frame x:Name="QRFrame" Grid.Row="2" Padding="3" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center">
-            <zxing:ZXingBarcodeImageView x:Name="BarcodeImageView" BarcodeFormat="QR_CODE" IsVisible="True" BarcodeValue="hello">
+            <zxing:ZXingBarcodeImageView x:Name="BarcodeImageView" BarcodeFormat="QR_CODE" IsVisible="True" BarcodeValue="0xd26114cd6EE289AccF82350c8d8487fedB8A0C07">
                 <zxing:ZXingBarcodeImageView.BarcodeOptions>
                     <zxcm:EncodingOptions Width="600" Height="600" />
                 </zxing:ZXingBarcodeImageView.BarcodeOptions>
@@ -61,7 +61,11 @@
             </Grid.ColumnDefinitions>
 
             <Label Text="Enter amount:" Grid.Column="0" Style="{StaticResource LabelEnterAmount}"></Label>
-            <Label x:Name="FiatCurrency" Text="$ USD" Grid.Column="1" Style="{StaticResource LabelFiatSymbol}"></Label>
+            <Picker x:Name="FiatPicker" Grid.Column="1" SelectedIndexChanged="FiatPicker_SelectedIndexChanged">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}"/>
+                </Picker.ItemsSource>
+            </Picker>
             <Entry x:Name="FiatAmount" Keyboard="Numeric" Grid.Column="2" Text="100.00" Style="{StaticResource EntryFiatAmount}" HorizontalOptions="Start"></Entry>
         </Grid>
 

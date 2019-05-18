@@ -14,6 +14,7 @@ namespace AddressDisplay {
     public partial class AddressPage : ContentPage {
         static ObservableCollection<ListViewUserAddress> userAddresses = new ObservableCollection<ListViewUserAddress>(); // An observable collection is needed in order for the listview to auto update, not a List
         List<string> cryptoList = new List<string>(); // This is for the picker
+        int updateIdGlobal; // this variable updated by tappedItem.id global variable, not the best way to do it
 
         public AddressPage() {
             InitializeComponent();
@@ -43,22 +44,14 @@ namespace AddressDisplay {
                 addressToBeAdded.crypto = userAddress.crypto;
                 addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].imageFile; // Was this really the best way to do this?
 
-                //ListViewUserAddress addressToBeAdded = (ListViewUserAddress) userAddress; // Constructor casting woes
-
                 userAddresses.Add(addressToBeAdded);
             }
-
-            //List<ListViewUserAddress> listViewAddresses = AddressDatabase.ReadDatabase2();
-            //userAddresses = new ObservableCollection<ListViewUserAddress>(listViewAddresses);
-
         }
 
         // Then data binding here
         private void PopulateListView() {            
             AddressesListView.ItemsSource = userAddresses;
-        }
-
-        int updateIdGlobal; // this variable updated by tappedItem.id global variable, not the best way to do it
+        }     
 
         // Add a new user address
         private void AddButton_Clicked(object sender, EventArgs e) {
@@ -98,7 +91,7 @@ namespace AddressDisplay {
         private void OkayButton_Clicked(object sender, EventArgs e) => SaveAddress();
 
         private void SaveAddress() {
-            UserAddress address = new UserAddress();
+            UserAddress address = new UserAddress(); // Create a new object and fill in the fields then send it off to save into the database
             address.name = AddressName.Text;
             address.address = EnterAddressField.Text;
             address.crypto = CryptoPicker.SelectedItem.ToString();
@@ -107,34 +100,6 @@ namespace AddressDisplay {
             ClearPopUp();
             AddressDatabase.SaveToDatabase(address);
             InitialiseAddressListView(); // Refresh listview
-        }
-
-        // Tap each address to bring up a list of things to do
-        //private async void AddressesListView_ItemTapped(object sender, ItemTappedEventArgs e) {
-        //    UserAddress tappedItem = (UserAddress)((ListView)sender).SelectedItem;
-        //    string action = await DisplayActionSheet("Action on " + tappedItem.name, "Cancel", null, "Delete", "Edit", "Copy address");
-
-        //    if (action == "Delete") {
-        //        AddressDatabase.DeleteFromDatabase(tappedItem.id);
-        //        userAddresses.Remove(userAddresses.Where(x => x.id == tappedItem.id).Single()); // x refers to each item in the collection
-        //    } else if (action == "Copy address") {
-        //        await Clipboard.SetTextAsync(tappedItem.address);
-        //    } else if (action == "Edit") {
-        //        int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
-        //        CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
-        //        updateIdGlobal = tappedItem.id;
-        //    }
-        //}
-
-        private void RefreshListView() {
-            //List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
-
-            //userAddresses.Clear();
-            
-
-            
-            //userAddresses = new ObservableCollection<UserAddress>(AddressDatabase.ReadDatabase());
-            //AddressesListView.ItemsSource = userAddresses; // Unnecessary with an Observable Collection
         }
 
         // Tap an item in the list view and get options, one of which is to edit the address
@@ -148,6 +113,7 @@ namespace AddressDisplay {
             } else if (action == "Copy address") {
                 await Clipboard.SetTextAsync(tappedItem.address);
             } else if (action == "Edit") {
+                // Editing an existing address - get the index of the crypto in the picker so that it can be passed into the pop up to auto-populate
                 int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
                 CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
                 updateIdGlobal = tappedItem.id;

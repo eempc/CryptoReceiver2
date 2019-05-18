@@ -7,36 +7,53 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using AddressDisplay.Address;
 using ZXing;
+using Xamarin.Essentials;
 
 namespace AddressDisplay {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage {
+        List<ListViewUserAddress> addresses; // Addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
+        List<string> fiatList = new List<string>();
+        string currentFiatCurrency;
 
-        //int currentAddressIndex;
-        List<ListViewUserAddress> addresses;
 
         public MainPage() {
             InitializeComponent();
-            //NavigationPage.SetHasNavigationBar(this, false);
-            Currency.CryptocurrencyList.InitiateCryptos();
-            AddressDatabase.CreateDatabase();
-
-            InitialiseImageButton();
-
-            //BarcodeImageView.BarcodeValue = "test string";
-            //BarcodeImageView.IsVisible = true;
-
-
+            InitialisationStuff();
         }
 
-        // To navigate to the listview address page
-        public void InitialiseImageButton() {
-            var iconTap = new TapGestureRecognizer();
-            iconTap.Tapped += (object sender, EventArgs e) => { GoToAddPage(); };
-            Image ic = Burger;
-            ic.GestureRecognizers.Add(iconTap);
+        private void InitialisationStuff() {
+            // Here I have chosen to invoke the static methods to initialise the lists (versus instantiating an object)
+            Currency.CryptocurrencyList.InitiateCryptos();
+            Currency.FiatCurrencyList.InitiateFiats();
+
+            // Populate the fiat picker with data binding
+            fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
+            FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
+
+            // Set user currency from preferences or default to USD
+            currentFiatCurrency = Preferences.Get("user_currency", "USD");
+
+            // Default the picker to the user preferences
+            int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);
+            FiatPicker.SelectedIndex = startingIndex;
+
+            // Ensure the database file is present
+            AddressDatabase.CreateDatabase();
+        }
+
+        // To navigate to the listview address page - DO NOT DELETE
+        //public void InitialiseImageButton() {
+        //    TapGestureRecognizer iconTap = new TapGestureRecognizer();
+        //    iconTap.Tapped += (object sender, EventArgs e) => { DoSomething(); };
+        //    Image ic = X:NameInXAML;
+        //    ic.GestureRecognizers.Add(iconTap);
+        //}
+
+        private void Burger_Clicked(object sender, EventArgs e) {
+            GoToAddPage();
         }
 
         // Page navigation to the address page
@@ -52,8 +69,8 @@ namespace AddressDisplay {
         //public void UpdateCryptoAmount(double fiatAmount) => CryptoAmount.Text = (fiatAmount).ToString();
 
         // Populate the wallet icon area at the bottom
-        protected override void OnAppearing() {
-            PopulateWalletArea();
+        protected override void OnAppearing() {            
+            PopulateWalletArea(); // At the bottom of the page
         }
 
         private void PopulateWalletArea() {
@@ -101,6 +118,15 @@ namespace AddressDisplay {
             ExchangeRate.Text = x.ToString();
         }
 
-        
+        private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
+            // Picker picker = sender as Picker;
+            string selectedItem = FiatPicker.SelectedItem.ToString();
+            SetUserFiatCurrency(selectedItem);
+        }
+
+        // User preference 1, if there are any more, create a new class to store it all, or maybe just do that now?
+        private void SetUserFiatCurrency(string fiatSymbol) {
+            Preferences.Set("user_currency", fiatSymbol);
+        }
     }
 }
