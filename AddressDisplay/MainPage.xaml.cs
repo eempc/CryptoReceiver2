@@ -15,9 +15,9 @@ namespace AddressDisplay {
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage {
         List<ListViewUserAddress> addresses; // Addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
-        List<string> fiatList = new List<string>();
-        string currentFiatCurrency;
-
+        List<string> fiatList = new List<string>(); // This list is for the picker
+        
+        Currency.FiatCurrency currentFiat;
 
         public MainPage() {
             InitializeComponent();
@@ -34,7 +34,9 @@ namespace AddressDisplay {
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
+            string currentFiatCurrency;
             currentFiatCurrency = Preferences.Get("user_currency", "USD");
+            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency];
 
             // Default the picker to the user preferences
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);

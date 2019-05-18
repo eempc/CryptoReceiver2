@@ -7,23 +7,26 @@ namespace AddressDisplay.Currency {
         public static Dictionary<string, FiatCurrency> fiatCurrencies = new Dictionary<string, FiatCurrency>();
         
         public static void InitiateFiats() {
-            fiatCurrencies.Add("United States Dollar", new FiatCurrency(
+            fiatCurrencies.Add("USD", new FiatCurrency(
                 "USD",
                 "United States Dollar",
                 new Dictionary<string, int>() { { "dollar", 0 }, { "cent", 2 }, { "pip", 4 } },
-                "eth.png"
+                "eth.png",
+                '$'
                 ));
-            fiatCurrencies.Add("Euro", new FiatCurrency(
+            fiatCurrencies.Add("EUR", new FiatCurrency(
                 "EUR",
                 "Euro",
                 new Dictionary<string, int>() { { "euro", 0 }, { "cent", 2 }, { "pip", 4 } },
-                "eth.png"
+                "eth.png",
+                '€'
                 ));
-            fiatCurrencies.Add("British Pound", new FiatCurrency(
+            fiatCurrencies.Add("GBP", new FiatCurrency(
                 "GBP",
                 "British Pound",
                 new Dictionary<string, int>() { { "pound", 0 }, { "pence", 2 }, { "pip", 4 } },
-                "eth.png"
+                "eth.png",
+                '£'
                 ));
         }
 
