@@ -277,6 +277,8 @@ D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\an
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXing.Net.Mobile.Forms.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\zxing.portable.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\ZXingNetMobile.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\linksrc\Newtonsoft.Json.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Newtonsoft.Json.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\machine.config
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\stamp\_CompileToDalvik.stamp
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\stamp\_GeneratePackageManagerJava.stamp

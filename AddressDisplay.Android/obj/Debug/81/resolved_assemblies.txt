@@ -5,6 +5,7 @@ D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\an
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Java.Interop.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Mono.Android.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\mscorlib.dll
+D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\Newtonsoft.Json.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\SQLite-net.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\SQLitePCLRaw.batteries_green.dll
 D:\Projects\AddressDisplay\AddressDisplay\AddressDisplay.Android\obj\Debug\81\android\assets\SQLitePCLRaw.batteries_v2.dll

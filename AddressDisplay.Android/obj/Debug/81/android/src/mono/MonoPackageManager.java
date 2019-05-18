@@ -114,6 +114,7 @@ class MonoPackageManager_Resources {
 		"AddressDisplay.dll",
 		"FastAndroidCamera.dll",
 		"FormsViewGroup.dll",
+		"Newtonsoft.Json.dll",
 		"SQLite-net.dll",
 		"SQLitePCLRaw.batteries_green.dll",
 		"SQLitePCLRaw.batteries_v2.dll",

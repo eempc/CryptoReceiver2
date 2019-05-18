@@ -96,9 +96,11 @@ namespace AddressDisplay {
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
             //string price = Currency.PriceFeed.MakeApiCall("ETH");
-            ExchangeRate.Text = "$300";
+            //ExchangeRate.Text = "$300";
+            var x = Currency.PriceFeed.GetSingleRate("ETH", "USD");
+            ExchangeRate.Text = x.ToString();
         }
 
-        private void UpdateExchangeRate
+        
     }
 }
