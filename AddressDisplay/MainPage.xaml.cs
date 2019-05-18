@@ -34,11 +34,10 @@ namespace AddressDisplay {
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
-            string currentFiatCurrency;
-            currentFiatCurrency = Preferences.Get("user_currency", "USD");
-            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency];
+            string currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string
+            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
 
-            // Default the picker to the user preferences
+            // Then default the picker to the user preferences by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);
             FiatPicker.SelectedIndex = startingIndex;
 
@@ -129,6 +128,7 @@ namespace AddressDisplay {
         // User preference 1, if there are any more, create a new class to store it all, or maybe just do that now?
         private void SetUserFiatCurrency(string fiatSymbol) {
             Preferences.Set("user_currency", fiatSymbol);
+            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
         }
     }
 }
