@@ -16,9 +16,11 @@ namespace AddressDisplay {
     public partial class MainPage : ContentPage {
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
         List<string> fiatList = new List<string>(); // This list is for the picker
-        
-        Currency.FiatCurrency currentFiat;
-        Currency.Cryptocurrency currentCrypto;
+
+        //Currency.FiatCurrency currentFiat = new Currency.FiatCurrency();
+        //Currency.Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
+        string currentFiatCurrency;
+        string currentCryptoCurrency;
         double currentPrice;       
 
         public MainPage() {
@@ -27,30 +29,36 @@ namespace AddressDisplay {
         }
 
         private void InitialisationStuff() {
+            // Ensure the database file is present
+            AddressDatabase.CreateDatabase();
+
             // Here I have chosen to invoke the static methods to initialise the lists (versus instantiating an object)
             Currency.CryptocurrencyList.InitiateCryptos();
             Currency.FiatCurrencyList.InitiateFiats();
+
+            // string currentFiatCurrency and currentCryptoCurrency take priority in here
+
+            // Get last known id and set it to current display, this will also set the current cryptocurrency
+            int lastId = Preferences.Get("current_id", 0);
+            SetAddressView(lastId);
 
             // Populate the fiat picker with data binding (in order)
             fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
-            string currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string, is this redundant?
-            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
+            currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string, is this redundant?
+            //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
 
             // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);
             FiatPicker.SelectedIndex = startingIndex;
 
-            // Ensure the database file is present
-            AddressDatabase.CreateDatabase();
 
-            // Get last known id and set it to current display, this will also set the current cryptocurrency
-            int lastId = Preferences.Get("current_id", 0);
-            SetAddressView(lastId);
+
+
+
             SetExchangeRate();
-
         }
 
         
@@ -92,23 +100,14 @@ namespace AddressDisplay {
         private void ImageButton_Clicked(object sender, EventArgs e) {
             string senderId = ((ImageButton)sender).ClassId; // ID is the database ID
             // Try casting TryParse then LoadAddress(int)
-            if (int.TryParse(senderId, out int number)) {
-                SetAddressView(number);
-            }
-
-            //LoadAddress(id);
+            if (int.TryParse(senderId, out int number)) SetAddressView(number);
+            SetExchangeRate();
         }
-
-        //public void LoadAddress(string x) {
-        //    if (int.TryParse(x, out int number)) {
-        //        UserAddress address = AddressDatabase.GetItemById(number); // Retrieve from the database
-        //        SetAddressView(address);
-        //    }
-        //}
 
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
-            currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
+            //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
+            currentCryptoCurrency = Currency.CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
 
             string cryptoName = address.crypto;
             Header.Text = cryptoName;
@@ -120,7 +119,6 @@ namespace AddressDisplay {
             // Feed box changes
 
             Preferences.Set("current_id", number);
-
         }
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
@@ -128,21 +126,27 @@ namespace AddressDisplay {
         }
 
         private void SetExchangeRate() {
-            double x = Currency.PriceFeed.GetSingleRate(currentCrypto.symbol, currentFiat.symbol);
-            ExchangeRate.Text = x.ToString();
+            double x = Currency.PriceFeed.GetSingleRate(currentCryptoCurrency, currentFiatCurrency);
             currentPrice = x;
+            UpdateExchangeRateText();
+        }
+
+        private void UpdateExchangeRateText() {
+            ExchangeRate.Text = currentPrice.ToString();
         }
 
         private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
             // Picker picker = sender as Picker;
             string selectedItem = FiatPicker.SelectedItem.ToString();
             SetUserFiatCurrency(selectedItem);
+            //SetExchangeRate();
         }
 
         // User preference 1, if there are any more, create a new class to store it all, or maybe just do that now?
         private void SetUserFiatCurrency(string fiatSymbol) {
             Preferences.Set("user_currency", fiatSymbol);
-            currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
+            //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
+            currentFiatCurrency = fiatSymbol;
             SetExchangeRate();
         }
     }

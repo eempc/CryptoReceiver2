@@ -13,7 +13,7 @@ namespace AddressDisplay.Currency {
         // This tool will do the conversion automatically
         private static readonly string url2 = "https://pro-api.coinmarketcap.com/v1/tools/price-conversion";
 
-        private static string MakeApiCall (string firstCurrency, string secondCurrency, double amount = 1) {
+        private static string MakeApiCall (string firstCurrency = "BTC", string secondCurrency = "USD", double amount = 1) {
             var URL = new UriBuilder(url2);
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
