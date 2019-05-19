@@ -14,10 +14,12 @@ namespace AddressDisplay {
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage {
-        List<ListViewUserAddress> addresses; // Addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
+        List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
         List<string> fiatList = new List<string>(); // This list is for the picker
         
         Currency.FiatCurrency currentFiat;
+        Currency.Cryptocurrency currentCrypto;
+        double currentPrice;       
 
         public MainPage() {
             InitializeComponent();
@@ -29,21 +31,29 @@ namespace AddressDisplay {
             Currency.CryptocurrencyList.InitiateCryptos();
             Currency.FiatCurrencyList.InitiateFiats();
 
-            // Populate the fiat picker with data binding
+            // Populate the fiat picker with data binding (in order)
             fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
-            string currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string
+            string currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string, is this redundant?
             currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
 
-            // Then default the picker to the user preferences by getting the index and setting the picker via index (silly I know)
+            // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);
             FiatPicker.SelectedIndex = startingIndex;
 
             // Ensure the database file is present
             AddressDatabase.CreateDatabase();
+
+            // Get last known id and set it to current display, this will also set the current cryptocurrency
+            int lastId = Preferences.Get("current_id", 0);
+            SetAddressView(lastId);
+            SetExchangeRate();
+
         }
+
+        
 
         // To navigate to the listview address page - DO NOT DELETE
         //public void InitialiseImageButton() {
@@ -53,9 +63,7 @@ namespace AddressDisplay {
         //    ic.GestureRecognizers.Add(iconTap);
         //}
 
-        private void Burger_Clicked(object sender, EventArgs e) {
-            GoToAddPage();
-        }
+        private void Burger_Clicked(object sender, EventArgs e) => GoToAddPage();        
 
         // Page navigation to the address page
         public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
@@ -79,29 +87,29 @@ namespace AddressDisplay {
             BindableLayout.SetItemsSource(WalletArea, addresses); // Data binding part
         }
 
-        // When user clicks on one of the icons depicting their address (this was going to be remade        
-        //private void ImageButtonFlex_Clicked(object sender, EventArgs e) {
-        //    //var id = ((ImageButton)sender).ClassId;
+        // When user clicks on one of the icons depicting their address (this was going to be remade      
+        // I don't like this code
+        private void ImageButton_Clicked(object sender, EventArgs e) {
+            string senderId = ((ImageButton)sender).ClassId; // ID is the database ID
+            // Try casting TryParse then LoadAddress(int)
+            if (int.TryParse(senderId, out int number)) {
+                SetAddressView(number);
+            }
 
-        //    ////await DisplayAlert("Alert", id, "OK");
+            //LoadAddress(id);
+        }
 
-        //    //LoadAddress(id);
+        //public void LoadAddress(string x) {
+        //    if (int.TryParse(x, out int number)) {
+        //        UserAddress address = AddressDatabase.GetItemById(number); // Retrieve from the database
+        //        SetAddressView(address);
+        //    }
         //}
 
-        private void ImageButton_Clicked(object sender, EventArgs e) {
-            string id = ((ImageButton)sender).ClassId;
-            LoadAddress(id);
-        }
+        public void SetAddressView(int number) {
+            UserAddress address = AddressDatabase.GetItemById(number);
+            currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
 
-        public void LoadAddress(string x) {
-            if (int.TryParse(x, out int number)) {
-                //await DisplayAlert("Alert", i.ToString(), "OK");
-                UserAddress address = AddressDatabase.GetItemById(number);
-                SetAddressView(address);
-            }
-        }
-
-        public void SetAddressView(UserAddress address) {
             string cryptoName = address.crypto;
             Header.Text = cryptoName;
             TopLeftIcon.Source = Currency.CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
@@ -110,13 +118,19 @@ namespace AddressDisplay {
             BarcodeImageView.BarcodeValue = address.address;
             // Etherscan image source
             // Feed box changes
+
+            Preferences.Set("current_id", number);
+
         }
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
-            //string price = Currency.PriceFeed.MakeApiCall("ETH");
-            //ExchangeRate.Text = "$300";
-            var x = Currency.PriceFeed.GetSingleRate("ETH", "USD");
+            SetExchangeRate();
+        }
+
+        private void SetExchangeRate() {
+            double x = Currency.PriceFeed.GetSingleRate(currentCrypto.symbol, currentFiat.symbol);
             ExchangeRate.Text = x.ToString();
+            currentPrice = x;
         }
 
         private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
@@ -129,6 +143,7 @@ namespace AddressDisplay {
         private void SetUserFiatCurrency(string fiatSymbol) {
             Preferences.Set("user_currency", fiatSymbol);
             currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
+            SetExchangeRate();
         }
     }
 }

@@ -13,13 +13,13 @@ namespace AddressDisplay.Currency {
         // This tool will do the conversion automatically
         private static readonly string url2 = "https://pro-api.coinmarketcap.com/v1/tools/price-conversion";
 
-        private static string MakeApiCall (string currency, string cryptocurrency, double amount = 1) {
+        private static string MakeApiCall (string firstCurrency, string secondCurrency, double amount = 1) {
             var URL = new UriBuilder(url2);
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["symbol"] = currency;
+            queryString["symbol"] = firstCurrency;
             queryString["amount"] = amount.ToString();
-            queryString["convert"] = cryptocurrency;
+            queryString["convert"] = secondCurrency;
 
             URL.Query = queryString.ToString();
 
@@ -33,12 +33,12 @@ namespace AddressDisplay.Currency {
         // Decide: quick and dirty method is to use regex
         // "Proper" way is to use newtonsoft to deserialise
 
-        public static double GetSingleRate(string currency, string cryptocurrency) {
-            string json = MakeApiCall(currency, cryptocurrency);
+        public static double GetSingleRate(string cryptocurrency, string fiatCurrency) {
+            string json = MakeApiCall(cryptocurrency, fiatCurrency);
             var topLevel = JsonParseTopLevel(json);
             string json2 = topLevel["data"]["quote"].ToString();
             var secondLevel = JsonParseTopLevel(json2);
-            double targetRate = (double)secondLevel[cryptocurrency]["price"];
+            double targetRate = (double)secondLevel[fiatCurrency]["price"];
             return targetRate;
         }
 
