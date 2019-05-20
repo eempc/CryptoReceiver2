@@ -20,7 +20,7 @@ namespace AddressDisplay {
         //Currency.FiatCurrency currentFiat = new Currency.FiatCurrency();
         //Currency.Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
 
-            // If I want to avoid API problems then these two variables should be set as preferences
+        // If I want to avoid API problems then these two variables should be set as preferences
         string currentFiatCurrencySymbol;
         string currentCryptoCurrencySymbol;
         double currentPrice;       
@@ -59,11 +59,8 @@ namespace AddressDisplay {
 
             // Update with default amount
             UpdateCryptoAmount();
-
         }
-
-        
-
+       
         // To navigate to the listview address page - DO NOT DELETE
         //public void InitialiseImageButton() {
         //    TapGestureRecognizer iconTap = new TapGestureRecognizer();
@@ -78,7 +75,6 @@ namespace AddressDisplay {
         public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
 
         // When user enters a fiat amount into the box
-
         private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
             UpdateCryptoAmount();            
         }
@@ -100,13 +96,14 @@ namespace AddressDisplay {
         }
 
         // When user clicks on one of the icons depicting their address (this was going to be remade      
-        // I don't like this code
         private void ImageButton_Clicked(object sender, EventArgs e) {
-            string senderId = ((ImageButton)sender).ClassId; // ID is the database ID
+            string senderId = ((ImageButton)sender).ClassId; // Unbox the sender object to ImageButton. Then retrieve its ID, which is the database ID
             // Try casting TryParse then LoadAddress(int)
-            if (int.TryParse(senderId, out int number)) SetAddressView(number);
-            SetExchangeRate();
-            UpdateCryptoAmount();
+            if (int.TryParse(senderId, out int number)) {
+                SetAddressView(number);
+                SetExchangeRate();
+                UpdateCryptoAmount();
+            }
         }
 
         public void SetAddressView(int number) {
@@ -136,12 +133,10 @@ namespace AddressDisplay {
             currentPrice = x;
             ExchangeRate.Text = x.ToString("0.###");
         }
-
         private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
             // Picker picker = sender as Picker;
             string selectedItem = FiatPicker.SelectedItem.ToString();
             SetUserFiatCurrency(selectedItem);
-            //SetExchangeRate();
         }
 
         // User preference 1, if there are any more, create a new class to store it all, or maybe just do that now?
@@ -156,13 +151,11 @@ namespace AddressDisplay {
         private void ExternalLink_Clicked(object sender, EventArgs e) {
             OpenBrowser();
         }
-        // This browser could perhaps be in a new class
+
+        // This browser could perhaps be in a new class. It could be replaced by a transaction verification with the etherscan API
         private async void OpenBrowser() {
             string url = "https://etherscan.io";
             await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
-            
-            //WebView browser = new WebView() { Source = url};
-            //browser.Source = "https://etherscan.io";
         }
     }
 }

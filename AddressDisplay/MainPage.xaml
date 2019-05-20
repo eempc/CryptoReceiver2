@@ -36,7 +36,7 @@
         <!-- Row 1 Address name-->
 
         <Label x:Name="GivenName" Grid.Row="1" Text="Omise GO Smart Contract" Style="{StaticResource LabelName}"></Label>
-        
+
         <!-- Row 2 QR code, which requires those two namespaces at the top, it will not work with NavigationPage -->
 
         <Frame x:Name="QRFrame" Grid.Row="2" Padding="3" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="Center">
@@ -80,7 +80,6 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-
 
             <Label Text="Please pay" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource LabelPleasePay}"/>
             <Label x:Name="CryptoAmount" Text="0.3333" Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelPayAmount}"/>
@@ -139,7 +138,5 @@
                 </FlexLayout>
             </ScrollView>
         </Grid>
-
     </Grid>
-
 </ContentPage>
