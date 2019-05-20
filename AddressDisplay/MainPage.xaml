@@ -98,7 +98,7 @@
             <Frame Grid.Column="0" Style="{StaticResource LinkBox}">
                 <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center">
                     <Label Text="View address on" TextColor="Azure" HorizontalTextAlignment="Center" FontSize="10"></Label>
-                    <Image x:Name="ExternalLink" Source="etherscan" Scale="0.6" VerticalOptions="Center"></Image>
+                    <Button x:Name="ExternalLink" Clicked="ExternalLink_Clicked" Scale="1" VerticalOptions="Center" Text="Etherscan" Padding="5,0"></Button>
                 </FlexLayout>
             </Frame>
 

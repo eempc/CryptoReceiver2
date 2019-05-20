@@ -153,6 +153,16 @@ namespace AddressDisplay {
             UpdateCryptoAmount();
         }
 
-
+        private void ExternalLink_Clicked(object sender, EventArgs e) {
+            OpenBrowser();
+        }
+        // This browser could perhaps be in a new class
+        private async void OpenBrowser() {
+            string url = "https://etherscan.io";
+            await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
+            
+            //WebView browser = new WebView() { Source = url};
+            //browser.Source = "https://etherscan.io";
+        }
     }
 }
