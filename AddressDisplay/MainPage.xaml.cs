@@ -19,8 +19,10 @@ namespace AddressDisplay {
 
         //Currency.FiatCurrency currentFiat = new Currency.FiatCurrency();
         //Currency.Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
-        string currentFiatCurrency;
-        string currentCryptoCurrency;
+
+            // If I want to avoid API problems then these two variables should be set as preferences
+        string currentFiatCurrencySymbol;
+        string currentCryptoCurrencySymbol;
         double currentPrice;       
 
         public MainPage() {
@@ -47,18 +49,17 @@ namespace AddressDisplay {
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
-            currentFiatCurrency = Preferences.Get("user_currency", "USD"); // string, is this redundant?
+            currentFiatCurrencySymbol = Preferences.Get("user_currency", "USD"); // string, is this redundant?
             //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
 
             // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
-            int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrency);
+            int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrencySymbol);
             FiatPicker.SelectedIndex = startingIndex;
-
-
-
-
-
             SetExchangeRate();
+
+            // Update with default amount
+            UpdateCryptoAmount();
+
         }
 
         
@@ -77,13 +78,16 @@ namespace AddressDisplay {
         public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
 
         // When user enters a fiat amount into the box
-        //private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
-        //    //if (double.TryParse(FiatAmount.Text, out double d) && !Double.IsNaN(d) && d > 0 && !Double.IsInfinity(d)) {
-        //    //    UpdateCryptoAmount(d);
-        //    //}
-        //}
 
-        //public void UpdateCryptoAmount(double fiatAmount) => CryptoAmount.Text = (fiatAmount).ToString();
+        private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
+            UpdateCryptoAmount();            
+        }
+
+        public void UpdateCryptoAmount() {
+            if (double.TryParse(FiatAmount.Text, out double fiatAmount) && !Double.IsNaN(fiatAmount) && fiatAmount > 0 && !Double.IsInfinity(fiatAmount)) {
+                CryptoAmount.Text = (fiatAmount / currentPrice).ToString("0.####");
+            }
+        }        
 
         // Populate the wallet icon area at the bottom
         protected override void OnAppearing() {            
@@ -102,12 +106,13 @@ namespace AddressDisplay {
             // Try casting TryParse then LoadAddress(int)
             if (int.TryParse(senderId, out int number)) SetAddressView(number);
             SetExchangeRate();
+            UpdateCryptoAmount();
         }
 
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
             //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
-            currentCryptoCurrency = Currency.CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
+            currentCryptoCurrencySymbol = Currency.CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
 
             string cryptoName = address.crypto;
             Header.Text = cryptoName;
@@ -123,16 +128,13 @@ namespace AddressDisplay {
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
             SetExchangeRate();
+            UpdateCryptoAmount();
         }
 
         private void SetExchangeRate() {
-            double x = Currency.PriceFeed.GetSingleRate(currentCryptoCurrency, currentFiatCurrency);
+            double x = Currency.PriceFeed.GetSingleRate(currentCryptoCurrencySymbol, currentFiatCurrencySymbol);
             currentPrice = x;
-            UpdateExchangeRateText();
-        }
-
-        private void UpdateExchangeRateText() {
-            ExchangeRate.Text = currentPrice.ToString();
+            ExchangeRate.Text = x.ToString("0.###");
         }
 
         private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
@@ -146,8 +148,11 @@ namespace AddressDisplay {
         private void SetUserFiatCurrency(string fiatSymbol) {
             Preferences.Set("user_currency", fiatSymbol);
             //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
-            currentFiatCurrency = fiatSymbol;
+            currentFiatCurrencySymbol = fiatSymbol;
             SetExchangeRate();
+            UpdateCryptoAmount();
         }
+
+
     }
 }

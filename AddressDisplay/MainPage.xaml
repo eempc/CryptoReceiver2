@@ -66,7 +66,7 @@
                     <x:Array Type="{x:Type x:String}"/>
                 </Picker.ItemsSource>
             </Picker>
-            <Entry x:Name="FiatAmount" Keyboard="Numeric" Grid.Column="2" Text="100.00" Style="{StaticResource EntryFiatAmount}" HorizontalOptions="Start"></Entry>
+            <Entry x:Name="FiatAmount" TextChanged="FiatAmount_TextChanged" Keyboard="Numeric" Grid.Column="2" Text="100.00" Style="{StaticResource EntryFiatAmount}" HorizontalOptions="Start"></Entry>
         </Grid>
 
         <!-- Row 5 Ether amount -->
