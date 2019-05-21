@@ -76,7 +76,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[3.6.0.344457, )"
+              "version": "[4.0.0.425677, )"
             },
             "ZXing.Net.Mobile": {
               "target": "Package",
@@ -145,7 +145,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[3.6.0.344457, )"
+              "version": "[4.0.0.425677, )"
             },
             "ZXing.Net.Mobile.Forms": {
               "target": "Package",

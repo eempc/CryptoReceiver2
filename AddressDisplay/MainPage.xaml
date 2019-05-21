@@ -104,7 +104,7 @@
             <Frame Grid.Column="1" Style="{StaticResource LinkBox}">
                 <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center">
                     <Label TextColor="Azure" x:Name="ExchangeRateLabel" Text="Exchange rate" HorizontalTextAlignment="Center" FontSize="14"/>
-                    <Button Clicked="ExchangeRate_Clicked" TextColor="Azure" x:Name="ExchangeRate" Text="$450" FontSize="12" BackgroundColor="Blue" HeightRequest="32"/>
+                    <Button Clicked="ExchangeRate_Clicked" TextColor="Azure" x:Name="ExchangeRate" Text="$450" FontSize="10" BackgroundColor="Blue" HeightRequest="32"/>
 
                 </FlexLayout>
             </Frame>

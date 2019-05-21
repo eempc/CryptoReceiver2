@@ -116,7 +116,7 @@ namespace AddressDisplay {
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
             //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
-            currentCryptoCurrencyFullName = CryptocurrencyList.cryptocurrencies[address.crypto].FullName; // not the best way to do it
+            currentCryptoCurrencyFullName = address.crypto; // not the best way to do it
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
             Preferences.Set("current_crypto", currentCryptoCurrencyFullName);
 
