@@ -4,16 +4,16 @@ using System.Text;
 
 namespace AddressDisplay.Currency {
     public abstract class Currency {
-        public string symbol { get; set; }
-        public string fullName { get; set; }
-        public Dictionary<string, int> unitNames { get; set; }
-        public string imageFile { get; set; }
+        public string Symbol { get; set; }
+        public string FullName { get; set; }
+        public Dictionary<int, string> UnitNames { get; set; }
+        public string ImageFile { get; set; }
 
-        public Currency(string symbol, string fullName, Dictionary<string, int> unitNames, string imageFile) {
-            this.symbol = symbol;
-            this.fullName = fullName;
-            this.unitNames = unitNames;
-            this.imageFile = imageFile;
+        public Currency(string symbol, string fullName, Dictionary<int, string> unitNames, string imageFile) {
+            this.Symbol = symbol;
+            this.FullName = fullName;
+            this.UnitNames = unitNames;
+            this.ImageFile = imageFile;
         }
 
         public Currency() {

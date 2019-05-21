@@ -9,6 +9,7 @@ using AddressDisplay.Address;
 using ZXing;
 using Xamarin.Essentials;
 using AddressDisplay.Currency;
+using AddressDisplay.ExtraTools;
 
 namespace AddressDisplay {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
@@ -19,11 +20,11 @@ namespace AddressDisplay {
         List<string> fiatList = new List<string>(); // This list is for the picker
 
         //FiatCurrency currentFiat = new Currency.FiatCurrency();
-        //Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
+        Cryptocurrency currentCryptoObject = new Cryptocurrency();
 
         // If I want to avoid API problems then these two variables should be set as preferences
         string currentFiatCurrencySymbol;
-        string currentCryptoCurrencySymbol;
+        string currentCryptoCurrencyFullName;
         double currentPrice;
 
         string currentAddress;
@@ -38,12 +39,13 @@ namespace AddressDisplay {
             AddressDatabase.CreateDatabase();
 
             // Here I have chosen to invoke the static methods to initialise the lists (versus instantiating an object)
-            Currency.CryptocurrencyList.InitiateCryptos();
-            Currency.FiatCurrencyList.InitiateFiats();
+            CryptocurrencyList.InitiateCryptos();
+            FiatCurrencyList.InitiateFiats();
 
             // string currentFiatCurrency and currentCryptoCurrency take priority in here
-
-            currentCryptoCurrencySymbol = Preferences.Get("current_crypto", "BTC");
+            //Preferences.Set("current_crypto", "Bitcoin");
+            currentCryptoCurrencyFullName = Preferences.Get("current_crypto", "Bitcoin");
+            currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
             // Populate the fiat picker with data binding (in order)
             fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
@@ -114,12 +116,13 @@ namespace AddressDisplay {
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
             //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
-            currentCryptoCurrencySymbol = CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
-            Preferences.Set("current_crypto", currentCryptoCurrencySymbol);
+            currentCryptoCurrencyFullName = CryptocurrencyList.cryptocurrencies[address.crypto].FullName; // not the best way to do it
+            currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
+            Preferences.Set("current_crypto", currentCryptoCurrencyFullName);
 
-            string cryptoName = address.crypto;
-            Header.Text = cryptoName;
-            TopLeftIcon.Source = CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
+            //string cryptoName = address.crypto;
+            Header.Text = currentCryptoObject.FullName;
+            TopLeftIcon.Source = currentCryptoObject.ImageFile; // Image URL
             GivenName.Text = address.name;
             CryptoAddress.Text = address.address; //.yeah well done here rofl
             BarcodeImageView.BarcodeValue = address.address;
@@ -136,10 +139,18 @@ namespace AddressDisplay {
         }
 
         private void SetExchangeRate() {
+            string currentCryptoCurrencySymbol = currentCryptoObject.Symbol;
             double x = PriceFeed.GetSingleRate(currentCryptoCurrencySymbol, currentFiatCurrencySymbol);
             currentPrice = x;
-            ExchangeRate.Text = x.ToString("0.###");
+            ExchangeRate.Text = x.ToString("0.###"); // This will require significant figures calculation (in a new class) - case less than 1, less than 0.001, etc
+            UpdateCryptoLabels();
         }
+
+        private void UpdateCryptoLabels() {
+            CryptoUnits.Text = currentCryptoObject.UnitNames[0];
+            ExternalLink.Text = (currentCryptoObject.ExternalUrl != "") ? StringManipulation.RemoveHttps(currentCryptoObject.ExternalUrl) : "None"; // Regex trim to the base address            
+        }
+
         private void FiatPicker_SelectedIndexChanged(object sender, EventArgs e) {
             // Picker picker = sender as Picker;
             string selectedItem = FiatPicker.SelectedItem.ToString();
@@ -161,9 +172,7 @@ namespace AddressDisplay {
 
         // This browser could perhaps be in a new class. It could be replaced by a transaction verification with the etherscan API
         private async void OpenBrowser() {
-            string baseurl = @"https://etherscan.io";
-            string url = baseurl + @"/address/" + currentAddress;
-            await Browser.OpenAsync(baseurl, BrowserLaunchMode.SystemPreferred);
+            if (currentCryptoObject.ExternalUrl != "") await Browser.OpenAsync(currentCryptoObject.ExternalUrl, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

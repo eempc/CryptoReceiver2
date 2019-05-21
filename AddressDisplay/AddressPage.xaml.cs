@@ -42,7 +42,7 @@ namespace AddressDisplay {
                 addressToBeAdded.name = userAddress.name;
                 addressToBeAdded.address = userAddress.address;
                 addressToBeAdded.crypto = userAddress.crypto;
-                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].imageFile; // Was this really the best way to do this?
+                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].ImageFile; // Was this really the best way to do this?
 
                 userAddresses.Add(addressToBeAdded);
             }

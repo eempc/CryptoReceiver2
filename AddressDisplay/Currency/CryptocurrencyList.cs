@@ -9,23 +9,24 @@ namespace AddressDisplay.Currency {
 
         public static void InitiateCryptos() {
             cryptocurrencies.Add("Ethereum", new Cryptocurrency(
-                "ETH",
-                "Ethereum",
-                new Dictionary<string, int>() { { "ether", 0 }, { "finney", 3 }, { "szabo", 6 }, { "shannon", 9 }, { "lovelace", 12 }, { "babbage", 15 }, { "wei", 18 } },
-                "eth.png"
+                "ETH", // Symbol
+                "Ethereum", //Fullname
+                new Dictionary<int, string>() { { 0, "ether" }, { 3, "finney"}, { 6, "szabo" }, { 9, "shannon" }, { 12, "lovelace" }, { 15, "babbage" }, { 18, "wei" } },
+                "eth.png",
+                @"https://etherscan.io/address/"
                 ));
             cryptocurrencies.Add("Bitcoin", new Cryptocurrency(
-                "BTC", "Bitcoin", new Dictionary<string, int>() { { "bitcoin", 0 }, { "satoshi", 8 } }, "btc.png"
+                "BTC", "Bitcoin", new Dictionary<int, string>() { { 0, "bitcoin" }, { 8, "satoshi" } }, "btc.png", @"https://www.blockchain.com/btc/address/"
                 ));
             cryptocurrencies.Add("Monero", new Cryptocurrency(
-                "XMR", "Monero", new Dictionary<string, int>() { { "monero", 0 }, { "piconero", 12 } }, "xmr.png"
+                "XMR", "Monero", new Dictionary<int, string>() { { 0, "monero" }, { 12, "piconero" } }, "xmr.png", ""
                 ));
         }
 
         public static List<string> GetCryptoList() {
             List<string> list = new List<string>();
             foreach (KeyValuePair<string, Cryptocurrency> entry in cryptocurrencies) {
-                list.Add(entry.Value.fullName); // Same as entry.Key but probably best to use the object property
+                list.Add(entry.Value.FullName); // Same as entry.Key but probably best to use the object property
             }
             return list;
         }

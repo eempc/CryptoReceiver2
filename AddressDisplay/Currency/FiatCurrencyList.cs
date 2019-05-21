@@ -10,21 +10,21 @@ namespace AddressDisplay.Currency {
             fiatCurrencies.Add("USD", new FiatCurrency(
                 "USD",
                 "United States Dollar",
-                new Dictionary<string, int>() { { "dollar", 0 }, { "cent", 2 }, { "pip", 4 } },
+                new Dictionary<int, string>() { { 0, "dollar" }, { 2, "cent" }, { 4, "pip" } },
                 "eth.png",
                 '$'
                 ));
             fiatCurrencies.Add("EUR", new FiatCurrency(
                 "EUR",
                 "Euro",
-                new Dictionary<string, int>() { { "euro", 0 }, { "cent", 2 }, { "pip", 4 } },
+                new Dictionary<int, string>() { { 0, "euro" }, { 2, "cent" }, { 4, "pip" } },
                 "eth.png",
                 '€'
                 ));
             fiatCurrencies.Add("GBP", new FiatCurrency(
                 "GBP",
                 "British Pound",
-                new Dictionary<string, int>() { { "pound", 0 }, { "pence", 2 }, { "pip", 4 } },
+                new Dictionary<int, string>() { { 0, "pound" }, { 2, "pence" }, { 4, "pip" } },
                 "eth.png",
                 '£'
                 ));
@@ -33,7 +33,7 @@ namespace AddressDisplay.Currency {
         public static List<string> GetFiatSymbolList() {
             List<string> list = new List<string>();
             foreach (KeyValuePair<string, FiatCurrency> entry in fiatCurrencies) {
-                list.Add(entry.Value.symbol);
+                list.Add(entry.Value.Symbol);
             }
             return list;
         }
