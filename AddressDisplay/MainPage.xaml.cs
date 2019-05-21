@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using AddressDisplay.Address;
 using ZXing;
 using Xamarin.Essentials;
+using AddressDisplay.Currency;
 
 namespace AddressDisplay {
     // Learn more about making custom code visible in the Xamarin.Forms previewer
@@ -17,13 +18,15 @@ namespace AddressDisplay {
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
         List<string> fiatList = new List<string>(); // This list is for the picker
 
-        //Currency.FiatCurrency currentFiat = new Currency.FiatCurrency();
-        //Currency.Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
+        //FiatCurrency currentFiat = new Currency.FiatCurrency();
+        //Cryptocurrency currentCrypto = new Currency.Cryptocurrency();
 
         // If I want to avoid API problems then these two variables should be set as preferences
         string currentFiatCurrencySymbol;
         string currentCryptoCurrencySymbol;
-        double currentPrice;       
+        double currentPrice;
+
+        string currentAddress;
 
         public MainPage() {
             InitializeComponent();
@@ -40,9 +43,7 @@ namespace AddressDisplay {
 
             // string currentFiatCurrency and currentCryptoCurrency take priority in here
 
-            // Get last known id and set it to current display, this will also set the current cryptocurrency
-            int lastId = Preferences.Get("current_id", 0);
-            SetAddressView(lastId);
+            currentCryptoCurrencySymbol = Preferences.Get("current_crypto", "BTC");
 
             // Populate the fiat picker with data binding (in order)
             fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
@@ -56,6 +57,10 @@ namespace AddressDisplay {
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrencySymbol);
             FiatPicker.SelectedIndex = startingIndex;
             SetExchangeRate();
+
+            // Get last known id and set it to current display, this will also set the current cryptocurrency
+            int lastId = Preferences.Get("current_id", 0);
+            if (lastId != 0) SetAddressView(lastId);
 
             // Update with default amount
             UpdateCryptoAmount();
@@ -109,11 +114,12 @@ namespace AddressDisplay {
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
             //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
-            currentCryptoCurrencySymbol = Currency.CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
+            currentCryptoCurrencySymbol = CryptocurrencyList.cryptocurrencies[address.crypto].symbol; // not the best way to do it
+            Preferences.Set("current_crypto", currentCryptoCurrencySymbol);
 
             string cryptoName = address.crypto;
             Header.Text = cryptoName;
-            TopLeftIcon.Source = Currency.CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
+            TopLeftIcon.Source = CryptocurrencyList.cryptocurrencies[cryptoName].imageFile;
             GivenName.Text = address.name;
             CryptoAddress.Text = address.address; //.yeah well done here rofl
             BarcodeImageView.BarcodeValue = address.address;
@@ -121,6 +127,7 @@ namespace AddressDisplay {
             // Feed box changes
 
             Preferences.Set("current_id", number);
+            currentAddress = address.address;
         }
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
@@ -129,7 +136,7 @@ namespace AddressDisplay {
         }
 
         private void SetExchangeRate() {
-            double x = Currency.PriceFeed.GetSingleRate(currentCryptoCurrencySymbol, currentFiatCurrencySymbol);
+            double x = PriceFeed.GetSingleRate(currentCryptoCurrencySymbol, currentFiatCurrencySymbol);
             currentPrice = x;
             ExchangeRate.Text = x.ToString("0.###");
         }
@@ -154,8 +161,9 @@ namespace AddressDisplay {
 
         // This browser could perhaps be in a new class. It could be replaced by a transaction verification with the etherscan API
         private async void OpenBrowser() {
-            string url = "https://etherscan.io";
-            await Browser.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
+            string baseurl = @"https://etherscan.io";
+            string url = baseurl + @"/address/" + currentAddress;
+            await Browser.OpenAsync(baseurl, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace AddressDisplay.Currency {
         // Decide: quick and dirty method is to use regex
         // "Proper" way is to use newtonsoft to deserialise
 
-        public static double GetSingleRate(string cryptocurrency, string fiatCurrency) {
+        public static double GetSingleRate(string cryptocurrency = "BTC", string fiatCurrency = "USD") {
             string json = MakeApiCall(cryptocurrency, fiatCurrency);
             var topLevel = JsonParseTopLevel(json);
             string json2 = topLevel["data"]["quote"].ToString();
