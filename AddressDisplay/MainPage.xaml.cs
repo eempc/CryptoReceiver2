@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using AddressDisplay.Address;
@@ -111,24 +110,23 @@ namespace AddressDisplay {
             }
         }
 
+        // Display an address when a button is clicked or on start
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
-            //currentCrypto = Currency.CryptocurrencyList.cryptocurrencies[address.crypto];
-            currentCryptoCurrencyFullName = address.crypto; // not the best way to do it
+
+            currentCryptoCurrencyFullName = address.crypto; // string - not the best way to do it
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
             Preferences.Set("current_crypto", currentCryptoCurrencyFullName);
 
-            //string cryptoName = address.crypto;
             Header.Text = currentCryptoObject.FullName;
             TopLeftIcon.Source = currentCryptoObject.ImageFile; // Image URL
             GivenName.Text = address.name;
             CryptoAddress.Text = address.address; //.yeah well done here rofl
             BarcodeImageView.BarcodeValue = address.address;
-            // Etherscan image source
-            // Feed box changes
 
+            // Save this id as the default for startup
             Preferences.Set("current_id", number);
-            currentAddress = address.address;
+            currentAddress = address.address; // unused
         }
 
         private void ExchangeRate_Clicked(object sender, EventArgs e) {

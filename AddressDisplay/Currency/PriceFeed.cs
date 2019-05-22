@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace AddressDisplay.Currency {
     class PriceFeed {
         // Register for an API key from CMC developer portal for free and use the following URL for the latest market price (JSON)
-        private const string API_KEY = "2977f70f-3ac7-4a5e-833c-7ea88278f25c";
+        private const string API_KEY = "";
         // The standard quote URL
         private static readonly string url1 = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
         // This tool will do the conversion automatically
@@ -46,8 +46,6 @@ namespace AddressDisplay.Currency {
             return client.DownloadString(URL.ToString());
         }
 
-        // Decide: quick and dirty method is to use regex
-        // "Proper" way is to use newtonsoft to deserialise
 
         public static double GetSingleRate(string cryptocurrency = "BTC", string fiatCurrency = "USD") {
             string json = MakeApiCall(cryptocurrency, fiatCurrency);
