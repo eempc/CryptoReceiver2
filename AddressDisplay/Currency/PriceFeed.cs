@@ -7,13 +7,14 @@ using Newtonsoft.Json;
 namespace AddressDisplay.Currency {
     class PriceFeed {
         // Register for an API key from CMC developer portal for free and use the following URL for the latest market price (JSON)
-        private const string API_KEY = "";
+        private const string API_KEY = "2977f70f-3ac7-4a5e-833c-7ea88278f25c";
         // The standard quote URL
         private static readonly string url1 = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
         // This tool will do the conversion automatically
         private static readonly string url2 = "https://pro-api.coinmarketcap.com/v1/tools/price-conversion";
 
         private static string MakeApiCall (string firstCurrency = "BTC", string secondCurrency = "USD", double amount = 1) {
+            // These are rudimentary checks, to fix the common error of a crypto's full name being fed into the API call, should've used the symbol throughout
             if (firstCurrency.Length > 5) {
                 try {
                     firstCurrency = CryptocurrencyList.cryptocurrencies[firstCurrency].Symbol;
