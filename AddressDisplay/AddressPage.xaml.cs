@@ -33,7 +33,7 @@ namespace AddressDisplay {
         public static void InitialiseAddressListView() {
             userAddresses.Clear();
             // First retrieve the raw UserAddress list from the database
-            List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabase());
+            List<UserAddress> tempList = new List<UserAddress>(AddressDatabase.ReadDatabaseUserAddress());
 
             // Then cast it to the ListViewUserAddress and add the icon's path because I have yet to discover how to cast between base and derived classes
             foreach (UserAddress userAddress in tempList) {

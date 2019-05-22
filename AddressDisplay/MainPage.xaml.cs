@@ -43,7 +43,6 @@ namespace AddressDisplay {
             FiatCurrencyList.InitiateFiats();
 
             // string currentFiatCurrency and currentCryptoCurrency take priority in here
-            //Preferences.Set("current_crypto", "Bitcoin");
             currentCryptoCurrencyFullName = Preferences.Get("current_crypto", "Bitcoin");
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
@@ -53,7 +52,6 @@ namespace AddressDisplay {
 
             // Set user currency from preferences or default to USD
             currentFiatCurrencySymbol = Preferences.Get("user_currency", "USD"); // string, is this redundant?
-            //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[currentFiatCurrency]; // object
 
             // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrencySymbol);
@@ -98,7 +96,7 @@ namespace AddressDisplay {
         }
 
         private void PopulateWalletArea() {
-            addresses = AddressDatabase.ReadDatabase2();
+            addresses = AddressDatabase.ReadDatabaseThenCastListViewUserAddress();
             BindableLayout.SetItemsSource(WalletArea, addresses); // Data binding part
         }
 
