@@ -11,8 +11,6 @@ using AddressDisplay.Currency;
 using AddressDisplay.ExtraTools;
 
 namespace AddressDisplay {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage {
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
@@ -46,7 +44,7 @@ namespace AddressDisplay {
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
             // Populate the fiat picker with data binding (in order)
-            fiatList = Currency.FiatCurrencyList.GetFiatSymbolList();
+            fiatList = FiatCurrencyList.GetFiatSymbolList();
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
 
             // Set user currency from preferences or default to USD
@@ -153,10 +151,9 @@ namespace AddressDisplay {
             SetUserFiatCurrency(selectedItem);
         }
 
-        // User preference 1, if there are any more, create a new class to store it all, or maybe just do that now?
+        // User preference, if there are any more, create a new class to store it all, or maybe just do that now?
         private void SetUserFiatCurrency(string fiatSymbol) {
             Preferences.Set("user_currency", fiatSymbol);
-            //currentFiat = Currency.FiatCurrencyList.fiatCurrencies[fiatSymbol];
             currentFiatCurrencySymbol = fiatSymbol;
             SetExchangeRate();
             UpdateCryptoAmount();

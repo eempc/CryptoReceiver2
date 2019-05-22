@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -48,10 +47,8 @@ namespace AddressDisplay {
             }
         }
 
-        // Then data binding here
-        private void PopulateListView() {            
-            AddressesListView.ItemsSource = userAddresses;
-        }     
+        // Then data binding here of the listview
+        private void PopulateListView() => AddressesListView.ItemsSource = userAddresses; // Data binding
 
         // Add a new user address
         private void AddButton_Clicked(object sender, EventArgs e) {
@@ -119,35 +116,5 @@ namespace AddressDisplay {
                 updateIdGlobal = tappedItem.id;
             }
         }
-
-        //private void PasteButton_Clicked(object sender, EventArgs e) {
-
-        //}
-
-        //private void CancelButton_Clicked(object sender, EventArgs e) {
-
-        //}
-
-        //private void OkayButton_Clicked(object sender, EventArgs e) {
-
-        //}
-
-        //private void AddButton_Clicked(object sender, EventArgs e) {
-
-        //}
-
-        //private void MenuItem_Clicked(object sender, EventArgs e) {
-        //    var mi = ((MenuItem)sender);
-        //    DisplayAlert("Action 1", mi.CommandParameter.ToString() + " 1", "OK");
-        //}
-
-        //private void MenuItem_Clicked_1(object sender, EventArgs e) {
-        //    var mi = ((MenuItem)sender);
-        //    DisplayAlert("Action 2", mi.CommandParameter.ToString() + " 2", "OK");
-        //}
-
-        //private void AddressesListView_ItemSelected(object sender, SelectedItemChangedEventArgs e) {
-
-        //}
     }
 }
