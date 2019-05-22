@@ -924,6 +924,8 @@ namespace AddressDisplay.Droid
 			global::Xamarin.Forms.Platform.Android.Resource.Id.expanded_menu = global::AddressDisplay.Droid.Resource.Id.expanded_menu;
 			global::Xamarin.Forms.Platform.Android.Resource.Id.fill = global::AddressDisplay.Droid.Resource.Id.fill;
 			global::Xamarin.Forms.Platform.Android.Resource.Id.@fixed = global::AddressDisplay.Droid.Resource.Id.@fixed;
+			global::Xamarin.Forms.Platform.Android.Resource.Id.flyoutcontent_appbar = global::AddressDisplay.Droid.Resource.Id.flyoutcontent_appbar;
+			global::Xamarin.Forms.Platform.Android.Resource.Id.flyoutcontent_recycler = global::AddressDisplay.Droid.Resource.Id.flyoutcontent_recycler;
 			global::Xamarin.Forms.Platform.Android.Resource.Id.forever = global::AddressDisplay.Droid.Resource.Id.forever;
 			global::Xamarin.Forms.Platform.Android.Resource.Id.ghost_view = global::AddressDisplay.Droid.Resource.Id.ghost_view;
 			global::Xamarin.Forms.Platform.Android.Resource.Id.home = global::AddressDisplay.Droid.Resource.Id.home;
@@ -5261,10 +5263,10 @@ namespace AddressDisplay.Droid
 			public const int @fixed = 2131492914;
 			
 			// aapt resource value: 0x7F020176
-			public const int flyoutcontent.appbar = 2130837878;
+			public const int flyoutcontent_appbar = 2130837878;
 			
 			// aapt resource value: 0x7F020177
-			public const int flyoutcontent.recycler = 2130837879;
+			public const int flyoutcontent_recycler = 2130837879;
 			
 			// aapt resource value: 0x7F0C0009
 			public const int forever = 2131492873;

@@ -14,6 +14,22 @@ namespace AddressDisplay.Currency {
         private static readonly string url2 = "https://pro-api.coinmarketcap.com/v1/tools/price-conversion";
 
         private static string MakeApiCall (string firstCurrency = "BTC", string secondCurrency = "USD", double amount = 1) {
+            if (firstCurrency.Length > 5) {
+                try {
+                    firstCurrency = CryptocurrencyList.cryptocurrencies[firstCurrency].Symbol;
+                } catch (Exception e) {
+                    firstCurrency = "BTC";                    
+                }
+            }
+
+            if (secondCurrency.Length > 5) {
+                try {
+                    secondCurrency = CryptocurrencyList.cryptocurrencies[secondCurrency].Symbol;
+                } catch (Exception e) {
+                    secondCurrency = "USD";
+                }
+            }
+
             var URL = new UriBuilder(url2);
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
