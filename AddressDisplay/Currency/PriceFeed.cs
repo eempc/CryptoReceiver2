@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web; // Sometimes this requires an assembly to be added
 using Newtonsoft.Json;
+using AddressDisplay.ExtraTools;
 
 namespace AddressDisplay.Currency {
     class PriceFeed {
