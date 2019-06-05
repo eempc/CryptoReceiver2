@@ -13,6 +13,7 @@ using AddressDisplay.ExtraTools;
 namespace AddressDisplay {
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage {
+        //*** Global variables ***//
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
         List<string> fiatList = new List<string>(); // This list is for the picker
 
@@ -35,20 +36,21 @@ namespace AddressDisplay {
             // Ensure the database file is present
             AddressDatabase.CreateDatabase();
 
-            // Here I have chosen to invoke the static methods to initialise the lists (versus instantiating an object)
+            // Here I have chosen to invoke the static methods to initialise the currency lists (versus instantiating an object return method)
+            // Honestly these should just be return values from a return method
             CryptocurrencyList.InitiateCryptos();
             FiatCurrencyList.InitiateFiats();
 
-            // string currentFiatCurrency and currentCryptoCurrency take priority in here
+            // Set user currency from preferences or default to USD
+            currentFiatCurrencySymbol = Preferences.Get("user_currency", "USD"); // string, is this redundant?
+
+            // string currentFiatCurrency and currentCryptoCurrency take priority in here, Bitcoin is default if there is no returned value
             currentCryptoCurrencyFullName = Preferences.Get("current_crypto", "Bitcoin");
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
-            // Populate the fiat picker with data binding (in order)
+            // Populate the fiat picker (row 4 in the XAML) with data binding (in order)
             fiatList = FiatCurrencyList.GetFiatSymbolList();
             FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
-
-            // Set user currency from preferences or default to USD
-            currentFiatCurrencySymbol = Preferences.Get("user_currency", "USD"); // string, is this redundant?
 
             // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrencySymbol);
@@ -63,17 +65,17 @@ namespace AddressDisplay {
             UpdateCryptoAmount();
         }
        
-        // To navigate to the listview address page - DO NOT DELETE
+        /* To navigate to the listview address page - DO NOT DELETE
         //public void InitialiseImageButton() {
         //    TapGestureRecognizer iconTap = new TapGestureRecognizer();
         //    iconTap.Tapped += (object sender, EventArgs e) => { DoSomething(); };
         //    Image ic = X:NameInXAML;
         //    ic.GestureRecognizers.Add(iconTap);
-        //}
+        }
+        */
 
+        // Navigate to the address add page by clicking the burger icon (one line lambdas since it is simple)
         private void Burger_Clicked(object sender, EventArgs e) => GoToAddPage();        
-
-        // Page navigation to the address page
         public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
 
         // When user enters a fiat amount into the box
@@ -97,9 +99,9 @@ namespace AddressDisplay {
             BindableLayout.SetItemsSource(WalletArea, addresses); // Data binding part
         }
 
-        // When user clicks on one of the icons depicting their address (this was going to be remade      
+        // When user clicks on one of the icons depicting their address      
         private void ImageButton_Clicked(object sender, EventArgs e) {
-            string senderId = ((ImageButton)sender).ClassId; // Unbox the sender object to ImageButton. Then retrieve its ID, which is the database ID
+            string senderId = ((ImageButton)sender).ClassId; // Unbox the sender object to ImageButton. Then retrieve its ID, which is the database ID, variable ClassId
             // Try casting TryParse then LoadAddress(int)
             if (int.TryParse(senderId, out int number)) {
                 SetAddressView(number);
@@ -114,7 +116,7 @@ namespace AddressDisplay {
 
             currentCryptoCurrencyFullName = address.crypto; // string - not the best way to do it
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
-            Preferences.Set("current_crypto", currentCryptoCurrencyFullName);
+            Preferences.Set("current_crypto", currentCryptoObject.FullName);
 
             Header.Text = currentCryptoObject.FullName;
             TopLeftIcon.Source = currentCryptoObject.ImageFile; // Image URL
@@ -127,6 +129,7 @@ namespace AddressDisplay {
             currentAddress = address.address; // unused
         }
 
+        // The text with the API call button to get the current exchange rate can be manually updated by clicking this
         private void ExchangeRate_Clicked(object sender, EventArgs e) {
             SetExchangeRate();
             UpdateCryptoAmount();
@@ -140,6 +143,7 @@ namespace AddressDisplay {
             UpdateCryptoLabels();
         }
 
+        // Crypto labels are changing unit names, example from "1 bitcoin" to "4 ether", or changing the button text to show the appropriate URL, e.g. from Etherscan (ETH) to blockchain (BTC)
         private void UpdateCryptoLabels() {
             CryptoUnits.Text = currentCryptoObject.UnitNames[0];
             ExternalLink.Text = (currentCryptoObject.ExternalUrl != "") ? StringManipulation.RemoveHttps(currentCryptoObject.ExternalUrl) : "None"; // Regex trim to the base address            

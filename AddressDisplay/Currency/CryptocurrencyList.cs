@@ -8,18 +8,29 @@ namespace AddressDisplay.Currency {
         public static Dictionary<string, Cryptocurrency> cryptocurrencies = new Dictionary<string, Cryptocurrency>();
 
         public static void InitiateCryptos() {
-            cryptocurrencies.Add("Ethereum", new Cryptocurrency(
+            cryptocurrencies.Add("Ethereum", 
+                new Cryptocurrency(
                 "ETH", // Symbol
                 "Ethereum", //Fullname
-                new Dictionary<int, string>() { { 0, "ether" }, { 3, "finney"}, { 6, "szabo" }, { 9, "shannon" }, { 12, "lovelace" }, { 15, "babbage" }, { 18, "wei" } },
-                "eth.png",
-                @"https://etherscan.io/address/"
+                new Dictionary<int, string>() { { 0, "ether" }, { 3, "finney"}, { 6, "szabo" }, { 9, "shannon" }, { 12, "lovelace" }, { 15, "babbage" }, { 18, "wei" } }, // denominations
+                "eth.png", // Image resource
+                @"https://etherscan.io/address/" // External site to check address details where address can be appended to the end to return result
                 ));
-            cryptocurrencies.Add("Bitcoin", new Cryptocurrency(
-                "BTC", "Bitcoin", new Dictionary<int, string>() { { 0, "bitcoin" }, { 8, "satoshi" } }, "btc.png", @"https://www.blockchain.com/btc/address/"
+            cryptocurrencies.Add("Bitcoin", 
+                new Cryptocurrency(
+                "BTC", 
+                "Bitcoin", 
+                new Dictionary<int, string>() { { 0, "bitcoin" }, { 8, "satoshi" } }, 
+                "btc.png", 
+                @"https://www.blockchain.com/btc/address/"
                 ));
-            cryptocurrencies.Add("Monero", new Cryptocurrency(
-                "XMR", "Monero", new Dictionary<int, string>() { { 0, "monero" }, { 12, "piconero" } }, "xmr.png", ""
+            cryptocurrencies.Add("Monero", 
+                new Cryptocurrency(
+                "XMR", 
+                "Monero", 
+                new Dictionary<int, string>() { { 0, "monero" }, { 12, "piconero" } }, 
+                "xmr.png", 
+                ""
                 ));
         }
 

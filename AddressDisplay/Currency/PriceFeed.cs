@@ -15,6 +15,7 @@ namespace AddressDisplay.Currency {
         private static readonly string url2 = "https://pro-api.coinmarketcap.com/v1/tools/price-conversion";
 
         private static string MakeApiCall (string firstCurrency = "BTC", string secondCurrency = "USD", double amount = 1) {
+            if (String.IsNullOrEmpty(API_KEY)) return "0";
             // These are rudimentary checks, to fix the common error of a crypto's full name being fed into the API call, should've used the symbol throughout
             if (firstCurrency.Length > 5) {
                 try {
