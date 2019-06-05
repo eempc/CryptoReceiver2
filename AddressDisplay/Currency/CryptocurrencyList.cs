@@ -3,7 +3,6 @@
 namespace AddressDisplay.Currency {
     class CryptocurrencyList {
         // Hard coded list of cryptocurrencies, an SQLite version for user-generated addresses may exist in future
-        // maybe this should be all static? Maybe it should be instantiated
 
         public static Dictionary<string, Cryptocurrency> cryptocurrencies = new Dictionary<string, Cryptocurrency>();
 

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+
+// As with the crypto currency list, this is hard coded in as a static class
 
 namespace AddressDisplay.Currency {
     class FiatCurrencyList {
