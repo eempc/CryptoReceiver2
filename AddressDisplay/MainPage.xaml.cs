@@ -15,17 +15,13 @@ namespace AddressDisplay {
     public partial class MainPage : ContentPage {
         //*** Global variables ***//
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
-        List<string> fiatList = new List<string>(); // This list is for the picker
 
         //FiatCurrency currentFiat = new Currency.FiatCurrency();
         Cryptocurrency currentCryptoObject = new Cryptocurrency();
 
         // If I want to avoid API problems then these two variables should be set as preferences
         string currentFiatCurrencySymbol;
-        //string currentCryptoCurrencyFullName;
         double currentPrice;
-
-        string currentAddress;
 
         public MainPage() {
             InitializeComponent();
@@ -49,8 +45,7 @@ namespace AddressDisplay {
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
             // Populate the fiat picker (row 4 in the XAML) with data binding (in order)
-            fiatList = FiatCurrencyList.GetFiatSymbolList();
-            FiatPicker.ItemsSource = fiatList.OrderBy(c => c).ToList();
+            FiatPicker.ItemsSource = FiatCurrencyList.GetFiatSymbolList().OrderBy(c => c).ToList();
 
             // Then default the picker to the user preference by getting the index and setting the picker via index (silly I know)
             int startingIndex = FiatPicker.ItemsSource.IndexOf(currentFiatCurrencySymbol);
@@ -63,25 +58,14 @@ namespace AddressDisplay {
 
             // Update with default amount
             UpdateCryptoAmount();
-        }
-       
-        /* To navigate to the listview address page - DO NOT DELETE
-        //public void InitialiseImageButton() {
-        //    TapGestureRecognizer iconTap = new TapGestureRecognizer();
-        //    iconTap.Tapped += (object sender, EventArgs e) => { DoSomething(); };
-        //    Image ic = X:NameInXAML;
-        //    ic.GestureRecognizers.Add(iconTap);
-        }
-        */
+        }   
 
         // Navigate to the address add page by clicking the burger icon (one line lambdas since it is simple)
         private void Burger_Clicked(object sender, EventArgs e) => GoToAddPage();        
         public async void GoToAddPage() => await Navigation.PushModalAsync(new AddressPage (), false);
 
         // When user enters a fiat amount into the box
-        private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) {
-            UpdateCryptoAmount();            
-        }
+        private void FiatAmount_TextChanged(object sender, TextChangedEventArgs e) => UpdateCryptoAmount();            
 
         public void UpdateCryptoAmount() {
             if (double.TryParse(FiatAmount.Text, out double fiatAmount) && !Double.IsNaN(fiatAmount) && fiatAmount > 0 && !Double.IsInfinity(fiatAmount)) {
@@ -112,21 +96,20 @@ namespace AddressDisplay {
 
         // Display an address when a button is clicked or on start
         public void SetAddressView(int number) {
+            // Retrieve entry from database using id number and save it as last used preference
             UserAddress address = AddressDatabase.GetItemById(number);
+            Preferences.Set("current_id", number);
 
-            //currentCryptoCurrencyFullName = address.crypto;
+            // Set the preferences for the last used crypto for later retrieval
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[address.crypto]; // address.crypto = string name such as "Ethereum"
             Preferences.Set("current_crypto", currentCryptoObject.FullName);
 
+            // Get the XAML controls and modify them to the current address the user wants
             Header.Text = currentCryptoObject.FullName;
             TopLeftIcon.Source = currentCryptoObject.ImageFile; // Image URL
             GivenName.Text = address.name;
             CryptoAddress.Text = address.address; //.yeah well done here rofl
             BarcodeImageView.BarcodeValue = address.address;
-
-            // Save this id as the default for startup
-            Preferences.Set("current_id", number);
-            currentAddress = address.address; // unused
         }
 
         // The text with the API call button to get the current exchange rate can be manually updated by clicking this
@@ -163,10 +146,9 @@ namespace AddressDisplay {
             UpdateCryptoAmount();
         }
 
-        private void ExternalLink_Clicked(object sender, EventArgs e) {
-            OpenBrowser();
-        }
-
+        // E.g. the Etherscan website link box
+        private void ExternalLink_Clicked(object sender, EventArgs e) => OpenBrowser();
+        
         // This browser could perhaps be in a new class. It could be replaced by a transaction verification with the etherscan API
         private async void OpenBrowser() {
             if (currentCryptoObject.ExternalUrl != "") await Browser.OpenAsync(currentCryptoObject.ExternalUrl, BrowserLaunchMode.SystemPreferred);
