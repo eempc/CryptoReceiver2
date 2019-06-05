@@ -96,7 +96,7 @@
           "lib/netstandard2.0/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.0.0.425677": {
+      "Xamarin.Forms/4.0.0.482894": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
@@ -495,10 +495,10 @@
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.0.0.425677": {
-      "sha512": "drwO/MimaMUnmvkULASYjU5MRciVIJyiLxD3ihFq8P+DWynQZ2NLNej0Vrs3k2L7UdmqvcgCxEJdfT7uFl2KVg==",
+    "Xamarin.Forms/4.0.0.482894": {
+      "sha512": "2K1/jCyor3CYYxEBMDMrIUhTOD0sxiipdmJTbj9NYBnV3iJKblnBRWPoi06Is4cSoXC7G6sWSuF2b6cYxigEjg==",
       "type": "package",
-      "path": "xamarin.forms/4.0.0.425677",
+      "path": "xamarin.forms/4.0.0.482894",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -736,7 +736,7 @@
         "lib/uap10.0/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.0.0.425677.nupkg.sha512",
+        "xamarin.forms.4.0.0.482894.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -790,7 +790,7 @@
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 12.0.2",
       "Xamarin.Essentials >= 1.1.0",
-      "Xamarin.Forms >= 4.0.0.425677",
+      "Xamarin.Forms >= 4.0.0.482894",
       "ZXing.Net.Mobile.Forms >= 2.4.1",
       "sqlite-net-pcl >= 1.5.231"
     ]
@@ -855,7 +855,7 @@
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.0.0.425677, )"
+            "version": "[4.0.0.482894, )"
           },
           "ZXing.Net.Mobile.Forms": {
             "target": "Package",

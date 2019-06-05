@@ -22,7 +22,7 @@ namespace AddressDisplay {
 
         // If I want to avoid API problems then these two variables should be set as preferences
         string currentFiatCurrencySymbol;
-        string currentCryptoCurrencyFullName;
+        //string currentCryptoCurrencyFullName;
         double currentPrice;
 
         string currentAddress;
@@ -45,7 +45,7 @@ namespace AddressDisplay {
             currentFiatCurrencySymbol = Preferences.Get("user_currency", "USD"); // string, is this redundant?
 
             // string currentFiatCurrency and currentCryptoCurrency take priority in here, Bitcoin is default if there is no returned value
-            currentCryptoCurrencyFullName = Preferences.Get("current_crypto", "Bitcoin");
+            string currentCryptoCurrencyFullName = Preferences.Get("current_crypto", "Bitcoin");
             currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
 
             // Populate the fiat picker (row 4 in the XAML) with data binding (in order)
@@ -114,8 +114,8 @@ namespace AddressDisplay {
         public void SetAddressView(int number) {
             UserAddress address = AddressDatabase.GetItemById(number);
 
-            currentCryptoCurrencyFullName = address.crypto; // string - not the best way to do it
-            currentCryptoObject = CryptocurrencyList.cryptocurrencies[currentCryptoCurrencyFullName];
+            //currentCryptoCurrencyFullName = address.crypto;
+            currentCryptoObject = CryptocurrencyList.cryptocurrencies[address.crypto]; // address.crypto = string name such as "Ethereum"
             Preferences.Set("current_crypto", currentCryptoObject.FullName);
 
             Header.Text = currentCryptoObject.FullName;

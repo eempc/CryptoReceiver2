@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "bacdbaf06212d47d7ba603453d5183fbad690645"
+    "signature": "d5c324f6671290b61209305d914556be3a47e79c"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,7 +12,7 @@
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "12.0.2",
           "Xamarin.Essentials": "1.1.0",
-          "Xamarin.Forms": "4.0.0.425677",
+          "Xamarin.Forms": "4.0.0.482894",
           "ZXing.Net.Mobile.Forms": "2.4.1",
           "sqlite-net-pcl": "1.5.231"
         },
@@ -92,19 +92,19 @@
           }
         }
       },
-      "Xamarin.Forms/4.0.0.425677": {
+      "Xamarin.Forms/4.0.0.482894": {
         "runtime": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "4.0.0.139"
           },
           "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "4.0.0.139"
           },
           "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.0.0"
+            "fileVersion": "4.0.0.139"
           }
         }
       },
@@ -126,7 +126,7 @@
       },
       "ZXing.Net.Mobile.Forms/2.4.1": {
         "dependencies": {
-          "Xamarin.Forms": "4.0.0.425677",
+          "Xamarin.Forms": "4.0.0.482894",
           "ZXing.Net.Mobile": "2.4.1"
         },
         "runtime": {
@@ -200,12 +200,12 @@
       "path": "xamarin.essentials/1.1.0",
       "hashPath": "xamarin.essentials.1.1.0.nupkg.sha512"
     },
-    "Xamarin.Forms/4.0.0.425677": {
+    "Xamarin.Forms/4.0.0.482894": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-drwO/MimaMUnmvkULASYjU5MRciVIJyiLxD3ihFq8P+DWynQZ2NLNej0Vrs3k2L7UdmqvcgCxEJdfT7uFl2KVg==",
-      "path": "xamarin.forms/4.0.0.425677",
-      "hashPath": "xamarin.forms.4.0.0.425677.nupkg.sha512"
+      "sha512": "sha512-2K1/jCyor3CYYxEBMDMrIUhTOD0sxiipdmJTbj9NYBnV3iJKblnBRWPoi06Is4cSoXC7G6sWSuF2b6cYxigEjg==",
+      "path": "xamarin.forms/4.0.0.482894",
+      "hashPath": "xamarin.forms.4.0.0.482894.nupkg.sha512"
     },
     "ZXing.Net.Mobile/2.4.1": {
       "type": "package",
