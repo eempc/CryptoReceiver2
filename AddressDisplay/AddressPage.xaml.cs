@@ -37,11 +37,11 @@ namespace AddressDisplay {
             // Then cast it to the ListViewUserAddress and add the icon's path because I have yet to discover how to cast between base and derived classes
             foreach (UserAddress userAddress in tempList) {
                 ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
-                addressToBeAdded.id = userAddress.id;
-                addressToBeAdded.name = userAddress.name;
-                addressToBeAdded.address = userAddress.address;
-                addressToBeAdded.crypto = userAddress.crypto;
-                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].ImageFile; // Was this really the best way to do this?
+                addressToBeAdded.Id = userAddress.Id;
+                addressToBeAdded.Name = userAddress.Name;
+                addressToBeAdded.Address = userAddress.Address;
+                addressToBeAdded.Crypto = userAddress.Crypto;
+                addressToBeAdded.CryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.Crypto].ImageFile; // Was this really the best way to do this?
 
                 userAddresses.Add(addressToBeAdded);
             }
@@ -89,11 +89,11 @@ namespace AddressDisplay {
 
         private void SaveAddress() {
             UserAddress address = new UserAddress(); // Create a new object and fill in the fields then send it off to save into the database
-            address.name = AddressName.Text;
-            address.address = EnterAddressField.Text;
-            address.crypto = CryptoPicker.SelectedItem.ToString();
+            address.Name = AddressName.Text;
+            address.Address = EnterAddressField.Text;
+            address.Crypto = CryptoPicker.SelectedItem.ToString();
             //address.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[CryptoPicker.SelectedItem.ToString()].imageFile; // This is a bad line
-            address.id = updateIdGlobal; // Update global id, if it is 0 then SavetoDatabase will create a new entry, it is set to 0 by Add Button. Could replace with default argument
+            address.Id = updateIdGlobal; // Update global id, if it is 0 then SavetoDatabase will create a new entry, it is set to 0 by Add Button. Could replace with default argument
             ClearPopUp();
             AddressDatabase.SaveToDatabase(address);
             InitialiseAddressListView(); // Refresh listview
@@ -102,18 +102,18 @@ namespace AddressDisplay {
         // Tap an item in the list view and get options, one of which is to edit the address
         private async void AddressesListView_ItemTapped(object sender, ItemTappedEventArgs e) {
             ListViewUserAddress tappedItem = (ListViewUserAddress)((ListView)sender).SelectedItem;
-            string action = await DisplayActionSheet("Action on " + tappedItem.name, "Cancel", null, "Delete", "Edit", "Copy address");
+            string action = await DisplayActionSheet("Action on " + tappedItem.Name, "Cancel", null, "Delete", "Edit", "Copy address");
 
             if (action == "Delete") {
-                AddressDatabase.DeleteFromDatabase(tappedItem.id);
-                userAddresses.Remove(userAddresses.Where(x => x.id == tappedItem.id).Single()); // x refers to each item in the collection
+                AddressDatabase.DeleteFromDatabase(tappedItem.Id);
+                userAddresses.Remove(userAddresses.Where(x => x.Id == tappedItem.Id).Single()); // x refers to each item in the collection
             } else if (action == "Copy address") {
-                await Clipboard.SetTextAsync(tappedItem.address);
+                await Clipboard.SetTextAsync(tappedItem.Address);
             } else if (action == "Edit") {
                 // Editing an existing address - get the index of the crypto in the picker so that it can be passed into the pop up to auto-populate
-                int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.crypto);
-                CreatePopUp("Edit address", tappedItem.name, tappedItem.address, index);
-                updateIdGlobal = tappedItem.id;
+                int index = CryptoPicker.ItemsSource.IndexOf(tappedItem.Crypto);
+                CreatePopUp("Edit address", tappedItem.Name, tappedItem.Address, index);
+                updateIdGlobal = tappedItem.Id;
             }
         }
     }

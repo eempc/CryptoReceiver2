@@ -8,7 +8,7 @@ using SQLite;
 namespace AddressDisplay.Address {
     class AddressDatabase {
         private static string personalFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-        public static string databasePath = Path.Combine(personalFolder, "addresses002.db3");
+        public static string databasePath = Path.Combine(personalFolder, "addresses003.db3");
 
         // Create the database if it does not already exist and seed it with one example address
         public static void CreateDatabase() {
@@ -17,9 +17,9 @@ namespace AddressDisplay.Address {
                 db.CreateTable<UserAddress>(); // Create table based on the class model UserAddress
 
                 UserAddress seedingAddress = new UserAddress();
-                seedingAddress.name = "My first Ethereum address";
-                seedingAddress.address = "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07";
-                seedingAddress.crypto = "Ethereum";      
+                seedingAddress.Name = "My first Ethereum address";
+                seedingAddress.Address = "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07";
+                seedingAddress.Crypto = "Ethereum";      
                 
                 db.Insert(seedingAddress);
             }
@@ -49,11 +49,11 @@ namespace AddressDisplay.Address {
             // Then cast it to the ListViewUserAddress and add the icon's path
             foreach (UserAddress userAddress in basicAddresses) {
                 ListViewUserAddress addressToBeAdded = new ListViewUserAddress();
-                addressToBeAdded.id = userAddress.id;
-                addressToBeAdded.name = userAddress.name;
-                addressToBeAdded.address = userAddress.address;
-                addressToBeAdded.crypto = userAddress.crypto;
-                addressToBeAdded.cryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.crypto].ImageFile; // Was this really the best way to do this?
+                addressToBeAdded.Id = userAddress.Id;
+                addressToBeAdded.Name = userAddress.Name;
+                addressToBeAdded.Address = userAddress.Address;
+                addressToBeAdded.Crypto = userAddress.Crypto;
+                addressToBeAdded.CryptoIconPath = Currency.CryptocurrencyList.cryptocurrencies[addressToBeAdded.Crypto].ImageFile; // Was this really the best way to do this?
 
                 listViewAddresses.Add(addressToBeAdded);
             }
@@ -71,7 +71,7 @@ namespace AddressDisplay.Address {
         // This saves or updates, depends on the address id is > 0 or not
         public static void SaveToDatabase(UserAddress address) {
             SQLiteConnection db = new SQLiteConnection(databasePath);
-            if (address.id <= 0) {
+            if (address.Id <= 0) {
                 db.Insert(address);
             } else {
                 db.Update(address);
@@ -81,7 +81,7 @@ namespace AddressDisplay.Address {
 
         public static UserAddress GetItemById(int number) {
             SQLiteConnection db = new SQLiteConnection(databasePath);
-            UserAddress singleAddress = db.Table<UserAddress>().Where(x => x.id == number).FirstOrDefault();
+            UserAddress singleAddress = db.Table<UserAddress>().Where(x => x.Id == number).FirstOrDefault();
             db.Close();
             return singleAddress;
 

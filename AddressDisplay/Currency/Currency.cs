@@ -11,7 +11,7 @@ namespace AddressDisplay.Currency {
             this.Symbol = symbol;
             this.FullName = fullName;
             this.UnitNames = unitNames;
-            this.ImageFile = imageFile;
+            this.ImageFile = imageFile;            
         }
 
         public Currency() {

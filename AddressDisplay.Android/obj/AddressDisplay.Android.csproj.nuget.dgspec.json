@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj": {}
+    "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj": {
+    "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj",
+        "projectUniqueName": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj",
         "projectName": "AddressDisplay.Android",
-        "projectPath": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj",
+        "projectPath": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\AddressDisplay.Android.csproj",
         "packagesPath": "C:\\Users\\Evie\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\obj\\",
+        "outputPath": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay.Android\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -32,8 +32,8 @@
         "frameworks": {
           "monoandroid81": {
             "projectReferences": {
-              "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj": {
-                "projectPath": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj"
+              "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj": {
+                "projectPath": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj"
               }
             }
           }
@@ -98,14 +98,14 @@
         }
       }
     },
-    "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj": {
+    "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj",
+        "projectUniqueName": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj",
         "projectName": "AddressDisplay",
-        "projectPath": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj",
+        "projectPath": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\AddressDisplay.csproj",
         "packagesPath": "C:\\Users\\Evie\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\AddressDisplay\\AddressDisplay\\AddressDisplay\\obj\\",
+        "outputPath": "D:\\Projects\\.NET C Sharp\\AddressDisplay\\AddressDisplay\\AddressDisplay\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\",

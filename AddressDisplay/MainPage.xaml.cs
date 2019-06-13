@@ -15,17 +15,14 @@ namespace AddressDisplay {
     public partial class MainPage : ContentPage {
         //*** Global variables ***//
         List<ListViewUserAddress> addresses; // User addresses list that will be used to populate the wallet area at the bottom (see OnAppearing)
-
+        Cryptocurrency currentCryptoObject = new Cryptocurrency(); // User's current cryptocurrency for display of units, calculations, exchange rate
         //FiatCurrency currentFiat = new Currency.FiatCurrency();
-        Cryptocurrency currentCryptoObject = new Cryptocurrency();
-
-        // If I want to avoid API problems then these two variables should be set as preferences
-        string currentFiatCurrencySymbol;
-        double currentPrice;
+        string currentFiatCurrencySymbol; // User's currently chosen fiat currency (selected from the picker)
+        double currentPrice; // API price feed call
 
         public MainPage() {
             InitializeComponent();
-            InitialisationStuff();
+            InitialisationStuff(); // Could've all went in the constructor, it's not like it was doing anything
         }
 
         private void InitialisationStuff() {
@@ -101,15 +98,15 @@ namespace AddressDisplay {
             Preferences.Set("current_id", number);
 
             // Set the preferences for the last used crypto for later retrieval
-            currentCryptoObject = CryptocurrencyList.cryptocurrencies[address.crypto]; // address.crypto = string name such as "Ethereum"
+            currentCryptoObject = CryptocurrencyList.cryptocurrencies[address.Crypto]; // address.crypto = string name such as "Ethereum"
             Preferences.Set("current_crypto", currentCryptoObject.FullName);
 
             // Get the XAML controls and modify them to the current address the user wants
             Header.Text = currentCryptoObject.FullName;
             TopLeftIcon.Source = currentCryptoObject.ImageFile; // Image URL
-            GivenName.Text = address.name;
-            CryptoAddress.Text = address.address; //.yeah well done here rofl
-            BarcodeImageView.BarcodeValue = address.address;
+            GivenName.Text = address.Name;
+            CryptoAddress.Text = address.Address; //.yeah well done here rofl
+            BarcodeImageView.BarcodeValue = address.Address;
         }
 
         // The text with the API call button to get the current exchange rate can be manually updated by clicking this

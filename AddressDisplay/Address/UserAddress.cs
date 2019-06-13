@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 
 // Model object for saving onto the database
 namespace AddressDisplay.Address {
     [Table("UserAddress")]
     public class UserAddress {
         [PrimaryKey, AutoIncrement, Column("_id")]
-        public int id { get; set; } // For identifying in the SQLite database
+        public int Id { get; set; } // For identifying in the SQLite database
         [MaxLength(64), Unique]
-        public string name { get; set; } // E.g. "My first Ethereum address"
+        public string Name { get; set; } // E.g. "My first Ethereum address"
         [MaxLength(64)]
-        public string address { get; set; } // "E.g. 0x89621f199bbc88a" Technically hexadecimal
+        public string Address { get; set; } // "E.g. 0x89621f199bbc88a" Technically hexadecimal
         [MaxLength(64)]
-        public string crypto { get; set; } // E.g. a string "Ethereum" 
+        public string Crypto { get; set; } // E.g. a string "Ethereum" 
 
         //public UserAddress(int id, string name, string address, string crypto) {
         //    this.id = id;

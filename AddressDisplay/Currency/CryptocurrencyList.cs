@@ -9,12 +9,13 @@ namespace AddressDisplay.Currency {
         public static void InitiateCryptos() {
             cryptocurrencies.Add("Ethereum", 
                 new Cryptocurrency(
-                "ETH", // Symbol
-                "Ethereum", //Fullname
-                new Dictionary<int, string>() { { 0, "ether" }, { 3, "finney"}, { 6, "szabo" }, { 9, "shannon" }, { 12, "lovelace" }, { 15, "babbage" }, { 18, "wei" } }, // denominations
-                "eth.png", // Image resource
-                @"https://etherscan.io/address/" // External site to check address details where address can be appended to the end to return result
+                    "ETH", // Symbol
+                    "Ethereum", //Fullname
+                    new Dictionary<int, string>() { { 0, "ether" }, { 3, "finney"}, { 6, "szabo" }, { 9, "shannon" }, { 12, "lovelace" }, { 15, "babbage" }, { 18, "wei" } }, // denominations
+                    "eth.png", // Image resource
+                    @"https://etherscan.io/address/" // External site to check address details where address can be appended to the end to return result
                 ));
+
             cryptocurrencies.Add("Bitcoin", 
                 new Cryptocurrency(
                 "BTC", 
@@ -23,6 +24,7 @@ namespace AddressDisplay.Currency {
                 "btc.png", 
                 @"https://www.blockchain.com/btc/address/"
                 ));
+
             cryptocurrencies.Add("Monero", 
                 new Cryptocurrency(
                 "XMR", 
